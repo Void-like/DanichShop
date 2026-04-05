@@ -1,15 +1,12 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:DanichShop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
-        x:Class="DanichShop.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="DanichShop">
+        x:Class="DanichShop.Registration"
+        Title="Registration">
 
-   <Window.Styles>
+    <Window.Styles>
 		<Style Selector="TextBox">
         <Setter Property="Padding" Value="10"/>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -18,16 +15,16 @@
         <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </Window.Styles>
-   
-    <Grid>
+
+   <Grid>
     <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
-    <TextBox Watermark="Логин"/>             
+    <TextBox Watermark="Логин" />             
    <TextBox Watermark="Пароль"/>
-   <Button Content="Войти"/>
-   <TextBlock Text="Вы не зарегистрированы?"/>    
-   <Button Content="Регистрация" Click="Button_Click"/>
-   <Button Content="Зайти без регистраций" Click="Button_Click_1"/>
+   <TextBox Watermark="Повторите пароль"/>
+   <Button Content="Зарегистрироваться"/>
+   <TextBlock Text="Уже зареганы?"/>    
+   <Button Content="Войти" Click="Button_Click"/>
    </StackPanel>
    </Grid>
-   
+    
 </Window>
