@@ -2,9 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
-        x:Class="DanichShop.Registration"
-        Title="Registration">
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+         xmlns:vm="using:DanichShop.ViewModels"
+        x:Class="DanichShop.Views.Registration"
+        x:DataType="vm:RegistrationViewModel"
+        Title="{Binding WindowCaption}">
 
     <Window.Styles>
 		<Style Selector="TextBox">
@@ -15,13 +17,20 @@
         <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </Window.Styles>
+         <Window.DataContext>
+        <vm:RegistrationViewModel/>
+    </Window.DataContext>
 
    <Grid>
-    <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
-    <TextBox Watermark="Логин" />             
-   <TextBox Watermark="Пароль"/>
-   <TextBox Watermark="Повторите пароль"/>
-   <Button Content="Зарегистрироваться"/>
+   <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
+   <TextBox Watermark="Логин" Text="{Binding Login}"/>     
+   <TextBox Watermark="Имя" Text="{Binding FName}"/>  
+   <TextBox Watermark="Фамилия" Text="{Binding SName}"/>  
+   <TextBox Watermark="Почта" Text="{Binding Email}"/>
+   <TextBox Watermark="Телефон" Text="{Binding Telephone}"/>             
+   <TextBox Watermark="Пароль" Text="{Binding Password}"/>
+   <TextBox Watermark="Повторите пароль" Text="{Binding Repytpassword}"/>
+   <Button Content="Зарегистрироваться" Command="{Binding RegCommand}"/>
    <TextBlock Text="Уже зареганы?"/>    
    <Button Content="Войти" Click="Button_Click"/>
    </StackPanel>

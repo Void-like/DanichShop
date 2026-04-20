@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using DanichShop.ViewModels;
 
 namespace DanichShop.Views
 {
@@ -8,6 +9,11 @@ namespace DanichShop.Views
         public MainWindow()
         {
             InitializeComponent();
+            Opened += (sender, args) =>
+            {
+
+                (DataContext as MainWindowViewModel).SetCloseAction(Close);
+            };
         }
 
         private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -19,8 +25,6 @@ namespace DanichShop.Views
 
         private void Button_Click_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            MainShop Window1 = new MainShop();
-            Window1.Show();
             this.Close();
         }
     }

@@ -24,6 +24,6 @@ public partial class MainShop : Window
 
     private void Button_Click_2(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        ContentPage.Content = new MainPage();
+        ContentPage.Content = new AccountPage();
     }
 }

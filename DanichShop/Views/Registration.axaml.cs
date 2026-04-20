@@ -1,9 +1,10 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using DanichShop.ViewModels;
 using DanichShop.Views;
 
-namespace DanichShop;
+namespace DanichShop.Views;
 
 public partial class Registration : Window
 {
@@ -11,6 +12,11 @@ public partial class Registration : Window
     public Registration()
     {
         InitializeComponent();
+        Opened += (sender, args) =>
+        {
+
+            (DataContext as RegistrationViewModel).SetCloseAction(Close);
+        };
     }
 
     private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

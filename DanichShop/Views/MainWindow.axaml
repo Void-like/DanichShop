@@ -3,11 +3,10 @@
         xmlns:vm="using:DanichShop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+        mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
         x:Class="DanichShop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="DanichShop">
+        Title="{Binding WindowCaption}">
 
    <Window.Styles>
 		<Style Selector="TextBox">
@@ -18,15 +17,17 @@
         <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </Window.Styles>
-   
+       <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
     <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
-    <TextBox Watermark="Логин"/>             
-   <TextBox Watermark="Пароль"/>
-   <Button Content="Войти"/>
+    <TextBox Watermark="Логин" Text="{Binding Login}"/>             
+   <TextBox Watermark="Пароль" Text="{Binding Password}"/>
+   <Button Content="Войти" Command="{Binding AuthCommand}"/>
    <TextBlock Text="Вы не зарегистрированы?"/>    
    <Button Content="Регистрация" Click="Button_Click"/>
-   <Button Content="Зайти без регистраций" Click="Button_Click_1"/>
+   <Button Content="Зайти без входа" Click="Button_Click_1"/>
    </StackPanel>
    </Grid>
    
