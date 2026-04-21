@@ -10,7 +10,6 @@ namespace WebApplication3.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class ItemControllers : ControllerBase
     {
         private readonly DanichshopContext _context;
@@ -19,7 +18,7 @@ namespace WebApplication3.Controllers
         {
             _context = context;
         }
- 
+       
         [HttpPost("createitem")]
         [Authorize]
         public async Task<IActionResult> Create([FromBody] ItemCreate itemCreate)
@@ -60,6 +59,15 @@ namespace WebApplication3.Controllers
                 return new UnauthorizedObjectResult(new { message = $"Ошибка при сохранении: {ex.Message}" });
 
             }
+
+           
+        }
+
+        [HttpGet("getitem")]
+        public async Task<ActionResult<List<Item>>> GetItems()
+        {
+
+            return await _context.Items.ToListAsync();
         }
     }
 }

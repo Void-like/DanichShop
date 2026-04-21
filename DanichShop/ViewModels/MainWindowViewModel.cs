@@ -4,17 +4,24 @@ using DanichShop.Models;
 using DanichShop.Utils;
 using DanichShop.Views;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace DanichShop.ViewModels
 {
     public partial class MainWindowViewModel : ViewModelBase
     {
+        [ObservableProperty]
+        private ObservableCollection<Item> items = new ObservableCollection<Item>();
+
         [ObservableProperty]
         private User thisUser = new User();
 
@@ -28,6 +35,17 @@ namespace DanichShop.ViewModels
 
         [ObservableProperty]
         private string windowCaption;
+
+
+
+
+        public MainWindowViewModel()
+        {
+            GetItem();
+        }
+
+
+
 
         [RelayCommand(CanExecute = nameof(CanExecuteLoginCommand))]
         public async void Auth()
@@ -56,6 +74,7 @@ namespace DanichShop.ViewModels
             {
                 MainShop Window1 = new MainShop();
                 Window1.Show();
+                
             }
             if (ThisUser.Role == "Admin")
             {
@@ -65,7 +84,24 @@ namespace DanichShop.ViewModels
 
             close();
         }
+        [RelayCommand]
+        public async void GetItem()
+        {
+            var client = Http.GetHttpClient();   
+            var result = await client.GetAsync("ItemControllers/getitem");
 
+            if (!result.IsSuccessStatusCode)
+            {
+                WindowCaption = "Ошибка загрузки товаров";
+                
+            }
+           var json = await result.Content.ReadAsStringAsync();
+          
+           Items.Clear();
+           Items = new (await result.Content.ReadFromJsonAsync<List<Item>>());
+            WindowCaption = "Товар успешном загружен";
+
+        }
 
         bool CanExecuteLoginCommand()
         {
