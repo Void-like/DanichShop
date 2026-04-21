@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace DanichShop.Models
 {
-    public partial class User
+    public class User
     {
-        public string FirstName { get; set; } = null!;
-
-        public string LastName { get; set; } = null!;
-
         public int Id { get; set; }
 
-        public decimal Balance { get; set; } = 0;
+        public string Login { get; set; }
 
-        public string Login { get; set; } = null!;
+        public string Password { get; set; }
 
-        public string Password { get; set; } = null!;
+        public string Fname { get; set; } 
 
-        public string Role { get; set; } = null!;
+        public string Sname { get; set; }
 
-        public bool Ban { get; set; } = false;
+        public string Telephone { get; set; }
+
+        public string Email { get; set; }
+
+        public decimal Balance { get; set; }
+
+        public bool Ban { get; set; }
+
+        public string Role { get; set; }
     }
 }

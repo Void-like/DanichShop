@@ -13,7 +13,7 @@ public partial class Item
 
     public decimal Cost { get; set; }
 
-    public ulong Picture { get; set; }
+    public byte[] Picture { get; set; } = null!;
 
     public int Count { get; set; }
 }

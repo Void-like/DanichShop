@@ -43,14 +43,15 @@ namespace WebApplication3.Controllers
 
 
             var claims = new List<Claim> {
-            //Кладём Id (если нужно)
+            //Кладём
               new Claim(ClaimValueTypes.Integer32, user.Id.ToString()),
               new Claim(ClaimTypes.Name, user.Login),
-              new Claim(ClaimTypes.GivenName, user.Fname ?? ""),
-              new Claim(ClaimTypes.Surname, user.Sname ?? ""),
-              new Claim(ClaimTypes.Email, user.Email ?? ""),
-              new Claim(ClaimTypes.MobilePhone, user.Telephone ?? ""),
-              new Claim(ClaimTypes.Role, user.Role ?? "User")
+              new Claim(ClaimTypes.GivenName, user.Fname),
+              new Claim(ClaimTypes.Surname, user.Sname),
+              new Claim(ClaimTypes.Email, user.Email),
+              new Claim(ClaimTypes.MobilePhone, user.Telephone),
+              new Claim(ClaimTypes.Role, user.Role),
+              new Claim("balance", user.Balance.ToString())
         };
             var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.ISSUER,

@@ -1,13 +1,16 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:DanichShop.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+        xmlns:vm="using:DanichShop.ViewModels"
         x:Class="DanichShop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Title="{Binding WindowCaption}">
 
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
    <Window.Styles>
 		<Style Selector="TextBox">
         <Setter Property="Padding" Value="10"/>
@@ -17,9 +20,7 @@
         <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </Window.Styles>
-       <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
+       
     <Grid>
     <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
     <TextBox Watermark="Логин" Text="{Binding Login}"/>             

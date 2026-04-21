@@ -1,0 +1,34 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DanichShop.AdminPanel"
+        xmlns:vm="using:DanichShop.ViewModels"        
+        x:DataType="vm:AdminViewModel"
+        Title="{Binding WindowCaption}">
+     
+         <Window.DataContext>
+        <vm:AdminViewModel/>
+    </Window.DataContext>
+ <Grid>
+      
+    
+
+
+
+ <StackPanel>
+	 <TextBox Watermark="Название" Text="{Binding Title}"/>
+     <TextBox Watermark="Описание" Text="{Binding Description}"/>
+     <TextBox Watermark="Цена"  Text="{Binding Cost}"/>
+     <TextBox Watermark="Количество" Text="{Binding Count}"/>
+     <Button Content="Создать" Command="{Binding CreateItemCommand}"/>
+      <TextBlock Text="Картинка товара:" FontWeight="Bold"/>
+                             <TextBlock Text="Предпросмотр:" Margin="0,0,0,5"/>
+                        <Image  Source="{Binding PicturePreview}" Width="200" Height="150" Stretch="Uniform"/>
+      <Button Content="Обзор..." Grid.Column="1" Command="{Binding SelectImageCommand}"/>
+ </StackPanel>
+ 
+ 
+ </Grid>
+</Window>
