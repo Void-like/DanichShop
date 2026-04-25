@@ -27,12 +27,14 @@
 	 <Border Grid.Row="1" Background="White" BorderBrush="#F3F4F6" BorderThickness="0,1,0,0" Padding="0,10,0,10">
             <Grid ColumnDefinitions="*, *, *">
                 
-                <StackPanel Grid.Column="0">
-                     <Button Classes="selector"  Content="Главное" Click="Button_Click"/>
+              
+
+                <StackPanel Grid.Column="0"> 
+                      <Button Classes="selector" Content="Каталог" Click="Button_Click_1"/>     
                 </StackPanel>
 
-                <StackPanel Grid.Column="1"> 
-                      <Button Classes="selector" Content="Каталог" Click="Button_Click_1"/>     
+                  <StackPanel Grid.Column="1">
+                     <Button Classes="selector"  Content="Корзина" Click="Button_Click"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2">                  

@@ -18,8 +18,17 @@
         <Setter Property="CornerRadius" Value="5"/>
         </Style>
     </UserControl.Styles>
-     <Grid>
-       <StackPanel Margin="100,400,150,0">
+
+
+
+     <Grid RowDefinitions="Auto,*">
+        <Border Background="#2c3e50" Padding="15">
+         <TextBlock Text="Настройки аккаунта" FontSize="20" FontWeight="Bold" Foreground="White"/>
+        </Border>
+         <Button Content="Пополнить баланс"/>
+         <Button Content="Настройки аккаунта"/>
+
+       <StackPanel Margin="100,400,150,0" Grid.Row="1">
            <TextBox Watermark="Имя" Text="{Binding ThisUser.Fname}"/>
            <TextBox Watermark="Фамилия" Text="{Binding ThisUser.Sname}"/>
            <TextBox Watermark="Почта"  Text="{Binding ThisUser.Email}"/>

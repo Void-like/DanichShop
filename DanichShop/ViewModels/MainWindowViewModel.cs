@@ -20,6 +20,11 @@ namespace DanichShop.ViewModels
     public partial class MainWindowViewModel : ViewModelBase
     {
         [ObservableProperty]
+        private string searchthisitem;
+        [ObservableProperty]
+        private ObservableCollection<Item> listitems = new ObservableCollection<Item>();
+
+        [ObservableProperty]
         private ObservableCollection<Item> items = new ObservableCollection<Item>();
 
         [ObservableProperty]
@@ -41,7 +46,7 @@ namespace DanichShop.ViewModels
 
         public MainWindowViewModel()
         {
-            GetItem();
+            SearchItem();
         }
 
 
@@ -74,7 +79,7 @@ namespace DanichShop.ViewModels
             {
                 MainShop Window1 = new MainShop();
                 Window1.Show();
-                
+                GetItem();
             }
             if (ThisUser.Role == "Admin")
             {
@@ -85,7 +90,32 @@ namespace DanichShop.ViewModels
             close();
         }
         [RelayCommand]
-        public async void GetItem()
+        public async void SearchItem()
+        {
+             Listitems.Clear();  
+            await GetItem();
+
+            if (!string.IsNullOrWhiteSpace(Searchthisitem))
+            {
+                foreach (var item in Items)
+                {
+                    if (item.Title.Contains(Searchthisitem) || item.Description.Contains(Searchthisitem))
+                    {
+                        Listitems.Add(item);
+                    }
+
+                }
+            }
+            else
+            {
+                foreach (var item in Items)
+                {
+                    Listitems.Add(item);
+                }
+            }
+        }
+            [RelayCommand]
+        public async Task GetItem()
         {
             var client = Http.GetHttpClient();   
             var result = await client.GetAsync("ItemControllers/getitem");

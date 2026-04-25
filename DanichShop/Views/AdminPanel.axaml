@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" MinHeight="1080" MinWidth="1920" d:DesignWidth="1920" d:DesignHeight="1080"
         x:Class="DanichShop.AdminPanel"
         xmlns:vm="using:DanichShop.ViewModels"        
         x:DataType="vm:AdminViewModel"
@@ -11,13 +11,11 @@
          <Window.DataContext>
         <vm:AdminViewModel/>
     </Window.DataContext>
- <Grid>
-      
-    
-
-
-
- <StackPanel>
+ <Grid ColumnDefinitions="*,*">
+ <TabControl Margin="10">
+    <TabItem Header="Добавление товаров">
+        <Grid>
+        <StackPanel>
 	 <TextBox Watermark="Название" Text="{Binding Title}"/>
      <TextBox Watermark="Описание" Text="{Binding Description}"/>
      <TextBox Watermark="Цена"  Text="{Binding Cost}"/>
@@ -26,8 +24,103 @@
       <TextBlock Text="Картинка товара:" FontWeight="Bold"/>
                              <TextBlock Text="Предпросмотр:" Margin="0,0,0,5"/>
                         <Image  Source="{Binding PicturePreview}" Width="200" Height="150" Stretch="Uniform"/>
-      <Button Content="Обзор..." Grid.Column="1" Command="{Binding SelectImageCommand}"/>
+      <Button Content="Обзор..."  Command="{Binding SelectImageCommand}"/>
+             <TextBox Watermark="Поиск" Text="{Binding Searchadditem}"/> 
+            <Button Content="Поиск" Command="{Binding SearchItemCommand}"/>
+            
+
+             <ScrollViewer>
+                        <ListBox ItemsSource="{Binding Itemssearch}" Grid.Column="1">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                
+                         
+                                            <StackPanel Grid.Column="1">
+                                                 <Border Width="80" Height="80" 
+                                        Background="#ddd" 
+                                        CornerRadius="5">
+                                    <Image Source="{Binding PictureImage}" Stretch="Uniform"/>
+                                </Border>
+                                                <TextBlock Text="{Binding Title}" 
+                                                           FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding Description}" 
+                                                           FontSize="11" 
+                                                           Foreground="Gray"/>
+                                                <TextBlock Text="{Binding Cost}" 
+                                                           FontSize="12"/>
+                                            </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                             </ListBox>
+                            </ScrollViewer>
  </StackPanel>
+      </Grid>  
+    </TabItem>
+
+    <TabItem Header="Изменение товаров">
+        <Grid ColumnDefinitions="*,*">
+        <StackPanel Margin="5">
+            <TextBox Watermark="Название"/>
+            <TextBox Watermark="Описание"/>
+            <TextBox Watermark="Цена"/>
+            <TextBox Watermark="Количество"/>
+            <TextBlock Text="Картинка товара:" FontWeight="Bold"/>
+             <Button Content="Изменить"/>
+                             <TextBlock Text="Предпросмотр:" Margin="0,0,0,5"/>
+                        <Image  Source="{Binding PicturePreview}" Width="200" Height="150" Stretch="Uniform"/>
+      <Button Content="Обзор..."  Command="{Binding SelectImageCommand}"/>
+            <TextBox Watermark="Поиск" Text="{Binding Searchchangeitem}"/> 
+            <Button Content="Поиск" Command="{Binding SearchItemCommand}"/>
+       
+            
+             <ScrollViewer>
+                        <ListBox ItemsSource="{Binding Itemschange}" SelectedItem="{Binding Selecteditem}" SelectionMode="Single" Grid.Column="1">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                
+                         
+                                            <StackPanel Grid.Column="1">
+                                                 <Border Width="80" Height="80" 
+                                        Background="#ddd" 
+                                        CornerRadius="5">
+                                    <Image Source="{Binding PictureImage}" Stretch="Uniform"/>
+                                </Border>
+                                                <TextBlock Text="{Binding Title}" 
+                                                           FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding Description}" 
+                                                           FontSize="11" 
+                                                           Foreground="Gray"/>
+                                                <TextBlock Text="{Binding Cost}" 
+                                                           FontSize="12"/>
+                                            </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                             </ListBox>
+                            </ScrollViewer>
+             </StackPanel>
+            </Grid>
+    </TabItem>
+    <TabItem Header="Пользователи">
+        <StackPanel>
+            <TextBox Watermark="Имя" Text="{Binding Changefname}"/>
+            <TextBox Watermark="Фамилия" Text="{Binding Changesname}"/>
+            <TextBox Watermark="Логин" Text="{Binding Changelogin}"/>
+            <TextBox Watermark="Пароль" Text="{Binding Changepassword}"/>
+            <TextBox Watermark="Баланс" Text="{Binding Changebalance}"/>
+            <TextBox Watermark="Бан" Text="{Binding Changeban}"/>
+            <Button Content="Изменить" Command="{Binding ChangeUserCommand}"/>
+
+
+            <TextBox Watermark="Поиск" Text="{Binding Searchchangeuser}"/> 
+            <Button Content="Поиск" Command="{Binding SearchItemCommand}"/>
+            </StackPanel>
+    </TabItem>
+</TabControl>     
+    
+
+
+
+ 
  
  
  </Grid>

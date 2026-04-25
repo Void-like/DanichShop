@@ -43,7 +43,7 @@ namespace WebApplication3.Controllers
 
 
             var claims = new List<Claim> {
-            //Кладём
+          
               new Claim(ClaimValueTypes.Integer32, user.Id.ToString()),
               new Claim(ClaimTypes.Name, user.Login),
               new Claim(ClaimTypes.GivenName, user.Fname),
@@ -55,10 +55,8 @@ namespace WebApplication3.Controllers
         };
             var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                //кладём полезную нагрузку
-                claims: claims,
-                //устанавливаем время жизни токена 2 минуты
+                audience: AuthOptions.AUDIENCE,             
+                claims: claims,             
                 expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
@@ -69,6 +67,7 @@ namespace WebApplication3.Controllers
 
         [HttpGet]
         [Route("changePassword")]
+        [Authorize]
         public async Task<ActionResult> ChangePassword(string oldPassword, string newPassword,int userid)
         {
             try
