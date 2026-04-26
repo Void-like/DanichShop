@@ -18,6 +18,8 @@ public partial class DanichshopContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
+    public virtual DbSet<Korzina> Korzinas { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,6 +41,33 @@ public partial class DanichshopContext : DbContext
             entity.Property(e => e.Cost).HasPrecision(10, 2);
             entity.Property(e => e.Description).HasColumnType("text");
             entity.Property(e => e.Title).HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<Korzina>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("korzina");
+
+            entity.HasIndex(e => e.ItemId, "item_id");
+
+            entity.HasIndex(e => e.UserId, "user_id");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Count)
+                .HasDefaultValueSql("'1'")
+                .HasColumnName("count");
+            entity.Property(e => e.ItemId).HasColumnName("item_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+
+            entity.HasOne(d => d.Item).WithMany(p => p.Korzinas)
+                .HasForeignKey(d => d.ItemId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("korzina_ibfk_2");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Korzinas)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("korzina_ibfk_1");
         });
 
         modelBuilder.Entity<User>(entity =>

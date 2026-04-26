@@ -29,30 +29,49 @@
             <Button Content="Поиск" Command="{Binding SearchItemCommand}"/>
             
 
-             <ScrollViewer>
-                        <ListBox ItemsSource="{Binding Itemssearch}" Grid.Column="1">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
+            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" Margin="10">
+            <ItemsControl ItemsSource="{Binding Itemssearch}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                     
+                        <Border Width="220" Height="320" Background="White" Margin="8" BorderBrush="#e0e0e0" BorderThickness="1">
+                            
+                            <Grid RowDefinitions="160,Auto,Auto,Auto">
                                 
-                         
-                                            <StackPanel Grid.Column="1">
-                                                 <Border Width="80" Height="80" 
-                                        Background="#ddd" 
-                                        CornerRadius="5">
-                                    <Image Source="{Binding PictureImage}" Stretch="Uniform"/>
+                              
+                                <Border Grid.Row="0" Background="White" >
+                                    <Image Source="{Binding PictureImage}"  Stretch="Uniform" VerticalAlignment="Center" MaxHeight="140"/>
                                 </Border>
-                                                <TextBlock Text="{Binding Title}" 
-                                                           FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding Description}" 
-                                                           FontSize="11" 
-                                                           Foreground="Gray"/>
-                                                <TextBlock Text="{Binding Cost}" 
-                                                           FontSize="12"/>
-                                            </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                             </ListBox>
-                            </ScrollViewer>
+                                
+                               
+                                <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="10,10,10,5" Foreground="#1a1a1a"/>
+                                
+                                
+                                <TextBlock Grid.Row="2"  Text="{Binding Description}" FontSize="11"  TextWrapping="Wrap" Margin="10,0,10,5" Foreground="#666" MaxHeight="35"/>
+                                
+                           
+                                <Grid Grid.Row="3" Margin="10,0,10,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBlock Grid.Column="0" Text="{Binding Cost}"  FontSize="16"  FontWeight="Bold" Foreground="#cc0000" VerticalAlignment="Center"/>
+                           
+                                </Grid>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
  </StackPanel>
       </Grid>  
     </TabItem>
@@ -60,7 +79,9 @@
     <TabItem Header="Изменение товаров">
         <Grid ColumnDefinitions="*,*">
         <StackPanel Margin="5">
+           
             <TextBox Watermark="Название"/>
+          
             <TextBox Watermark="Описание"/>
             <TextBox Watermark="Цена"/>
             <TextBox Watermark="Количество"/>
@@ -73,30 +94,47 @@
             <Button Content="Поиск" Command="{Binding SearchItemCommand}"/>
        
             
-             <ScrollViewer>
-                        <ListBox ItemsSource="{Binding Itemschange}" SelectedItem="{Binding Selecteditem}" SelectionMode="Single" Grid.Column="1">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
+            
+            <ListBox ItemsSource="{Binding Itemschange}" SelectedItem="{Binding Selecteditem}" SelectionMode="Single" Margin="10" Height="500">
+                <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+            <WrapPanel HorizontalAlignment="Left"/>
+        </ItemsPanelTemplate>
+    </ListBox.ItemsPanel>
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+                     
+                        <Border Width="220" Height="320" Background="White" Margin="8" BorderBrush="#e0e0e0" BorderThickness="1">
+                            
+                            <Grid RowDefinitions="160,Auto,Auto,Auto">
                                 
-                         
-                                            <StackPanel Grid.Column="1">
-                                                 <Border Width="80" Height="80" 
-                                        Background="#ddd" 
-                                        CornerRadius="5">
-                                    <Image Source="{Binding PictureImage}" Stretch="Uniform"/>
+                              
+                                <Border Grid.Row="0" Background="White" >
+                                    <Image Source="{Binding PictureImage}"  Stretch="Uniform" VerticalAlignment="Center" MaxHeight="140"/>
                                 </Border>
-                                                <TextBlock Text="{Binding Title}" 
-                                                           FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding Description}" 
-                                                           FontSize="11" 
-                                                           Foreground="Gray"/>
-                                                <TextBlock Text="{Binding Cost}" 
-                                                           FontSize="12"/>
-                                            </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                             </ListBox>
-                            </ScrollViewer>
+                                
+                               
+                                <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="10,10,10,5" Foreground="#1a1a1a"/>
+                                
+                                
+                                <TextBlock Grid.Row="2"  Text="{Binding Description}" FontSize="11"  TextWrapping="Wrap" Margin="10,0,10,5" Foreground="#666" MaxHeight="35"/>
+                                
+                           
+                                <Grid Grid.Row="3" Margin="10,0,10,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBlock Grid.Column="0" Text="{Binding Cost}"  FontSize="16"  FontWeight="Bold" Foreground="#cc0000" VerticalAlignment="Center"/>
+                                    
+                                </Grid>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
              </StackPanel>
             </Grid>
     </TabItem>
@@ -104,15 +142,38 @@
         <StackPanel>
             <TextBox Watermark="Имя" Text="{Binding Changefname}"/>
             <TextBox Watermark="Фамилия" Text="{Binding Changesname}"/>
-            <TextBox Watermark="Логин" Text="{Binding Changelogin}"/>
-            <TextBox Watermark="Пароль" Text="{Binding Changepassword}"/>
             <TextBox Watermark="Баланс" Text="{Binding Changebalance}"/>
             <TextBox Watermark="Бан" Text="{Binding Changeban}"/>
             <Button Content="Изменить" Command="{Binding ChangeUserCommand}"/>
-
-
             <TextBox Watermark="Поиск" Text="{Binding Searchchangeuser}"/> 
             <Button Content="Поиск" Command="{Binding SearchItemCommand}"/>
+             <ListBox ItemsSource="{Binding Userschange}" SelectedItem="{Binding Selecteditem}" SelectionMode="Single" Margin="10" Height="500">
+                <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+            <WrapPanel HorizontalAlignment="Left"/>
+        </ItemsPanelTemplate>
+    </ListBox.ItemsPanel>
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+                     
+                        <Border Width="220" Height="320" Background="White" Margin="8" BorderBrush="#e0e0e0" BorderThickness="1">
+                            
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+                                                              
+                                
+                               
+                                <TextBlock Grid.Row="0" Text="{Binding Fname}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="10" Foreground="#1a1a1a"/>
+                                <TextBlock Grid.Row="1"  Text="{Binding Sname}" FontSize="11"  TextWrapping="Wrap" Margin="10" Foreground="#666" MaxHeight="35"/>
+                                <TextBlock Grid.Row="2"  Text="{Binding Telephone}" FontSize="11"  TextWrapping="Wrap" Margin="10" Foreground="#666" MaxHeight="35"/>
+                                <TextBlock Grid.Row="3"  Text="{Binding Email}" FontSize="11"  TextWrapping="Wrap" Margin="10" Foreground="#666" MaxHeight="35"/>
+                                <TextBlock Grid.Row="4"  Text="{Binding Ban}" FontSize="11"  TextWrapping="Wrap" Margin="10" Foreground="#666" MaxHeight="35"/>
+                                <TextBlock Grid.Row="5"  Text="{Binding Balance}" FontSize="11"  TextWrapping="Wrap" Margin="10" Foreground="#666" MaxHeight="35"/>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             </StackPanel>
     </TabItem>
 </TabControl>     

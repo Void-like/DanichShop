@@ -16,4 +16,6 @@ public partial class Item
     public byte[] Picture { get; set; } = null!;
 
     public int Count { get; set; }
+
+    public virtual ICollection<Korzina> Korzinas { get; set; } = new List<Korzina>();
 }

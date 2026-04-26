@@ -16,40 +16,54 @@
             <TextBlock Text="Товары" FontSize="20"  FontWeight="Bold" Foreground="White"/>
         </Border>
         
-       <TextBox Watermark="Поиск..." Grid.Row="1" Text="{Binding Searchthisitem}" Grid.ColumnSpan="2"/>
+     
        <Button Content="Поиск" Grid.Row="1" Command="{Binding SearchItemCommand}" Grid.Column="3"/>
       
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3">
+     
+      <TextBox Grid.Row="1" Watermark="🔍 Поиск..." Text="{Binding Searchthisitem}" Background="White" BorderThickness="0" CornerRadius="5" Margin="10,5,5,5" Grid.ColumnSpan="2"  />
+       
+        
+        
+      
+       
+        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" Margin="10">
             <ItemsControl ItemsSource="{Binding Listitems}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="#f0f0f0" 
-                                CornerRadius="5" 
-                                Margin="10" 
-                                Padding="10">
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                
-                             
-                                <Border Width="80" Height="80" 
-                                        Background="#ddd" 
-                                        CornerRadius="5">
-                                    <Image Source="{Binding PictureImage}" Stretch="Uniform"/>
-                                </Border>
+                     
+                        <Border Width="220" Height="320" Background="White" Margin="8" BorderBrush="#e0e0e0" BorderThickness="1">
+                            
+                            <Grid RowDefinitions="160,Auto,Auto,Auto">
                                 
                               
-                                <StackPanel Grid.Row="2" Margin="10,0" Grid.ColumnSpan="3">
-                                    <TextBlock Text="{Binding Title}" 
-                                               FontSize="16" 
-                                               FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Description}" 
-                                               TextWrapping="Wrap"/>
-                                    <TextBlock Text="{Binding Cost}" 
-                                               Foreground="Green"/>
-                                    <TextBlock Text="{Binding Count}"/>
-                                </StackPanel>
+                                <Border Grid.Row="0" Background="White" >
+                                    <Image Source="{Binding PictureImage}"  Stretch="Uniform" VerticalAlignment="Center" MaxHeight="140"/>
+                                </Border>
                                 
-                             
-                                <Button Grid.Column="2"  Content="В корзину"  VerticalAlignment="Center"/>
+                               
+                                <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="10,10,10,5" Foreground="#1a1a1a"/>
+                                
+                                
+                                <TextBlock Grid.Row="2"  Text="{Binding Description}" FontSize="11"  TextWrapping="Wrap" Margin="10,0,10,5" Foreground="#666" MaxHeight="35"/>
+                                
+                           
+                                <Grid Grid.Row="3" Margin="10,0,10,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBlock Grid.Column="0" Text="{Binding Cost, StringFormat='Цена: {0}'}"  FontSize="16"  FontWeight="Bold" Foreground="#cc0000" VerticalAlignment="Center"/>
+                                    
+                                    <Button Grid.Column="1"  Content="В корзину"  Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).GetKorzina}"
+        CommandParameter="{Binding Id}"  Background="#cc0000" Foreground="White" Padding="12,5" FontSize="12" FontWeight="Bold"/>
+                                </Grid>
                                 
                             </Grid>
                         </Border>
@@ -57,7 +71,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-
-
-  </Grid>
+        
+    </Grid>
 </UserControl>

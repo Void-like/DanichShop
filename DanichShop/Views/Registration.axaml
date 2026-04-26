@@ -21,8 +21,11 @@
         <vm:RegistrationViewModel/>
     </Window.DataContext>
 
-   <Grid>
-   <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
+   <Grid RowDefinitions="80,*">
+        <Border Background="#2c3e50" Padding="15">
+         <TextBlock Text="Регистрация аккаунта" FontSize="20" FontWeight="Bold" Foreground="White"/>
+        </Border>
+   <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15" Grid.Row="1">
    <TextBox Watermark="Логин" Text="{Binding Login}"/>     
    <TextBox Watermark="Имя" Text="{Binding FName}"/>  
    <TextBox Watermark="Фамилия" Text="{Binding SName}"/>  

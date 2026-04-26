@@ -21,14 +21,17 @@
         </Style>
     </Window.Styles>
        
-    <Grid>
-    <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15">
+    <Grid RowDefinitions="50,*">
+        <Border Background="#2c3e50" Padding="15">
+         <TextBlock Text="Вход" FontSize="20" FontWeight="Bold" Foreground="White"/>
+        </Border>
+    <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15" Grid.Row="1">
     <TextBox Watermark="Логин" Text="{Binding Login}"/>             
    <TextBox Watermark="Пароль" Text="{Binding Password}"/>
    <Button Content="Войти" Command="{Binding AuthCommand}"/>
    <TextBlock Text="Вы не зарегистрированы?"/>    
    <Button Content="Регистрация" Click="Button_Click"/>
-   <Button Content="Зайти без входа" Click="Button_Click_1"/>
+   
    </StackPanel>
    </Grid>
    

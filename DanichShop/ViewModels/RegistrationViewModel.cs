@@ -52,12 +52,12 @@ namespace DanichShop.ViewModels
 
             if (!result.IsSuccessStatusCode)
             {
-                WindowCaption = "Ошибка входа";
+                WindowCaption = "Ошибка регистрации";
                 return;
             }
 
             ActiveUser.Token = await result.Content.ReadAsStringAsync();
-            WindowCaption = "Успешный вход";
+            WindowCaption = "Аккаунт создан";
      
 
 

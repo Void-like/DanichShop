@@ -36,10 +36,13 @@ namespace DanichShop.ViewModels
         [ObservableProperty]
         private ObservableCollection<Item> itemschange = new ObservableCollection<Item>();
         [ObservableProperty]
-        private ObservableCollection<User> users = new ObservableCollection<User>();
+        private ObservableCollection<User> userschange = new ObservableCollection<User>();
 
         [ObservableProperty]
         private ObservableCollection<Item> items = new ObservableCollection<Item>();
+
+        [ObservableProperty]
+        private ObservableCollection<User> users = new ObservableCollection<User>();
 
         [ObservableProperty]
         private Item selecteditem;
@@ -160,9 +163,9 @@ namespace DanichShop.ViewModels
 
 
             WindowCaption = "Предмет создан";
-          
 
-           
+
+            
         }
         [RelayCommand]
         public async Task ChangeItem()
@@ -179,6 +182,7 @@ namespace DanichShop.ViewModels
 
 
             WindowCaption = "Предмет изменен";
+            
         }
         [RelayCommand]
         public async Task ChangeUser()
@@ -193,6 +197,7 @@ namespace DanichShop.ViewModels
 
 
             WindowCaption = "Юзер изменен";
+            
         }
         [RelayCommand]
         private async Task SelectImage()
@@ -214,8 +219,9 @@ namespace DanichShop.ViewModels
         {
             Itemssearch.Clear();
             Itemschange.Clear();
+            Userschange.Clear();
             await GetItem();
-
+            await GetUser();
             if (!string.IsNullOrWhiteSpace(Searchadditem))
             {
                 foreach (var item in Items) 
@@ -259,12 +265,23 @@ namespace DanichShop.ViewModels
             }
             if (!string.IsNullOrWhiteSpace(Searchchangeuser))
             {
-                
+                foreach (var item in Users)
+                {
+
+                    if (item.Login.Contains(Searchchangeuser) || item.Fname.Contains(Searchchangeuser) || item.Sname.Contains(Searchchangeuser))
+                    {
+                        Userschange.Add(item);
+                    }
+
+                }
 
             }
             else
             {
-
+                foreach (var item in Users)
+                {
+                    Userschange.Add(item);
+                }
 
             }
             Searchadditem = string.Empty;
@@ -288,9 +305,26 @@ namespace DanichShop.ViewModels
             var json = await result.Content.ReadAsStringAsync();
             Items = new(await result.Content.ReadFromJsonAsync<List<Item>>());
             WindowCaption = "Товар успешном загружен";
+          
+        }
+        [RelayCommand]
+        public async Task GetUser()
+        {
+            var client = Http.GetHttpClient();
+            var result = await client.GetAsync("Login/getuser");
+
+            if (!result.IsSuccessStatusCode)
+            {
+                WindowCaption = "Ошибка загрузки товаров";
+
+            }
+            var json = await result.Content.ReadAsStringAsync();
+
+            Users.Clear();
+            Users = new(await result.Content.ReadFromJsonAsync<List<User>>());
+            WindowCaption = "Товар успешном загружен";
 
         }
-
         bool CanExecuteAddCommand()
         {
             return !string.IsNullOrEmpty(Title) && !string.IsNullOrEmpty(Description);

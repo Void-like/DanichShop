@@ -24,4 +24,6 @@ public partial class User
     public bool Ban { get; set; }
 
     public string Role { get; set; } = null!;
+
+    public virtual ICollection<Korzina> Korzinas { get; set; } = new List<Korzina>();
 }

@@ -23,9 +23,6 @@ namespace DanichShop.Views
             this.Close();
         }
 
-        private void Button_Click_1(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-        {
-            this.Close();
-        }
+    
     }
 }
