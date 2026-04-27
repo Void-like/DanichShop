@@ -102,13 +102,30 @@ namespace WebApplication3.Controllers
             }
             catch (Exception ex)
             {
-                return new UnauthorizedObjectResult(new { message = $"Ошибка при сохранении: {ex.Message}" });
+                return new UnauthorizedObjectResult(new { message = "Ошибка при сохранении" });
 
             }
 
 
         }
+        [Authorize]
+        [HttpDelete("Delete/{itemId}")]
 
+        public async Task<IActionResult> Deleteitem(int itemId)
+        {
+            var cartItems = await _context.Items.Where(x => x.Id == itemId).ToListAsync();
+            if (cartItems != null)
+            {
+                _context.Items.RemoveRange(cartItems);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Предмет удален" });
+            }
+            else
+            {
+                return new UnauthorizedObjectResult(new { message = "Ошибка при удалении" });
+            }
+        }
         [Authorize]
         [HttpGet("getitem")]
         public async Task<ActionResult<List<Item>>> GetItems()

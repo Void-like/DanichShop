@@ -218,7 +218,7 @@
                         </Border>
                         
                         <Border Background="#FEF2F2" CornerRadius="12" Padding="20" Margin="0,15,0,0">
-                            <Button Content="Удалить товар"  Background="#e74c3c" Foreground="White" Height="40"/>
+                            <Button Content="Удалить товар"  Background="#e74c3c" Foreground="White" Height="40" Command="{Binding DelItemCommand}"/>
                         </Border>
                         
                     </StackPanel>

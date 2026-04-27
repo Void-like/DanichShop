@@ -152,6 +152,26 @@ namespace DanichShop.ViewModels
             SearchItem();
         }
         [RelayCommand]
+        public async Task DelItem()
+        {
+            var client = Http.GetHttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ActiveUser.Token);
+
+            var result = await client.DeleteAsync($"ItemControllers/Delete/{Selecteditem.Id}");
+            if (!result.IsSuccessStatusCode)
+            {
+                
+                WindowCaption = "Ошибка удаление";
+                return;
+            }
+
+
+
+
+            WindowCaption = "Товар удален";
+            SearchItem();
+        }
+        [RelayCommand]
         private async Task SelectImage()
         {
             AdminPanel adminPanel = new AdminPanel();
