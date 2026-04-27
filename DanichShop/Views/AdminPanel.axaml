@@ -213,7 +213,7 @@
                                 
                                 <Button Content="Обзор..." Command="{Binding SelectImageCommand}" Background="#2c3e50" Foreground="White"/>
                                 
-                                <Button Content="Сохранить изменения" Background="#667eea" Foreground="White" Height="40"/>
+                                <Button Content="Сохранить изменения" Background="#667eea" Foreground="White" Height="40" Command="{Binding ChangeItemCommand}"/>
                             </StackPanel>
                         </Border>
                         
@@ -239,7 +239,7 @@
                         </Grid>
                         
                         <ScrollViewer Height="550" Margin="0,15,0,0">
-                            <ListBox ItemsSource="{Binding Userschange}" SelectedItem="{Binding Selecteditem}" SelectionMode="Single" BorderThickness="0">
+                            <ListBox ItemsSource="{Binding Userschange}" SelectedItem="{Binding Selecteduser}" SelectionMode="Single" BorderThickness="0">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <WrapPanel HorizontalAlignment="Left"/>
@@ -271,16 +271,21 @@
                         
                         <Border Background="#F9FAFB" CornerRadius="12" Padding="20">
                             <StackPanel>
-                                <TextBox Watermark="Имя" Text="{Binding Changefname}"/>
-                                <TextBox Watermark="Фамилия" Text="{Binding Changesname}"/>
-                                <TextBox Watermark="Почта" Text="{Binding Changeemail}"/>
-                                <TextBox Watermark="Телефон" Text="{Binding Changetelephone}"/>
-                                <TextBox Watermark="Логин" Text="{Binding Changelogin}"/>
-                                <TextBox Watermark="Пароль" Text="{Binding Changepassword}"/>
+                                <TextBox Watermark="Имя" Text="{Binding Selecteduser.Fname}"/>
+                                <TextBox Watermark="Фамилия" Text="{Binding Selecteduser.Sname}"/>
+                                <TextBox Watermark="Почта" Text="{Binding Selecteduser.Email}"/>
+                                <TextBox Watermark="Телефон" Text="{Binding Selecteduser.Telephone}"/>
+                                <TextBox Watermark="Логин" Text="{Binding Selecteduser.Login}"/>
+                                <TextBox Watermark="Пароль" Text="{Binding Selecteduser.Password}"/>
                                 <TextBlock Text="Баланс"/>
-                                <TextBox Watermark="Баланс" Text="{Binding Changebalance}"/>
+                                <TextBox Watermark="Баланс" Text="{Binding Selecteduser.Balance}"/>
+                                <TextBlock Text="Роль" />
+                                <ComboBox SelectedItem="{Binding Selecteduser.Role}"> 
+                                <ComboBoxItem Content="Пользователь" Tag="user"/>
+                                <ComboBoxItem Content="Администратор" Tag="admin"/>
+                                </ComboBox>
                                 <TextBlock Text="Статус бана"/>
-                                <ToggleSwitch   IsChecked="{Binding Changeban}"  OnContent="Забанен" OffContent="Активен"/>
+                                <ToggleSwitch   IsChecked="{Binding Selecteduser.Ban}"  OnContent="Забанен" OffContent="Активен"/>
                                 
                                 <Button Content="Сохранить изменения" Command="{Binding ChangeUserCommand}" Background="#667eea" Foreground="White" Height="40"/>
                             </StackPanel>

@@ -95,9 +95,9 @@ namespace WebApplication3.Controllers
             }
 
         }
+
         [HttpPost]
         [Route("changeaccount")]
-        [Authorize]
         public async Task<ActionResult> ChangeAccount(ChangeUser changeUser)
         {
             var user = await _context.Users.FindAsync(changeUser.Id);
@@ -107,9 +107,6 @@ namespace WebApplication3.Controllers
                 return NotFound(new { message = $"Пользователь не найден" });
             }
 
-            
-
-         
             user.Login = changeUser.Login;
             user.Fname = changeUser.FirstName;
             user.Sname = changeUser.LastName;
@@ -119,7 +116,37 @@ namespace WebApplication3.Controllers
            
             await _context.SaveChangesAsync();
 
-            return Ok(new{message = $"Пользователь {user.Login} успешно обновлён" });
+            return Ok(new{message ="Пользователь  успешно обновлён" });
+
+        }
+
+        [HttpPost]
+        [Route("adminchangeuser")]
+        [Authorize]
+        public async Task<ActionResult> AdminChangeUser(User changeUser)
+        {
+            var user = await _context.Users.FindAsync(changeUser.Id);
+
+            if (user == null)
+            {
+                return NotFound(new { message = $"Пользователь не найден" });
+            }
+
+
+
+
+            user.Login = changeUser.Login;
+            user.Fname = changeUser.Fname;
+            user.Sname = changeUser.Sname;
+            user.Telephone = changeUser.Telephone;
+            user.Email = changeUser.Email;
+            user.Ban = changeUser.Ban;
+            user.Role = changeUser.Role;
+            user.Balance = changeUser.Balance;
+
+           await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Пользователь  успешно обновлён" });
 
         }
         [HttpPost]

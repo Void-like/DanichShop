@@ -3,10 +3,12 @@
     public class ChangeUser
     {
         public int Id { get; set; }
-        public string Login { get; set; } = null!;
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
-        public string Telephone { get; set; } = null!;
-        public string Email { get; set; } = null!;
+        public string Login { get; set; } 
+        public string FirstName { get; set; } 
+        public string LastName { get; set; } 
+        
+        public string Telephone { get; set; } 
+        public string Email { get; set; } 
+   
     }
 }

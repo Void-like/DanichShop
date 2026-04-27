@@ -48,6 +48,9 @@ namespace DanichShop.ViewModels
         private Item selecteditem;
 
         [ObservableProperty]
+        private User selecteduser;
+
+        [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CreateItemCommand))]
         private string title;
 
@@ -71,64 +74,9 @@ namespace DanichShop.ViewModels
         [ObservableProperty]
         private Bitmap picturePreview;
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changetitle;
+ 
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changedescription;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private decimal changecost;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private int changecount;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changelogin;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changepassword;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changefname;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changesname;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changetelephone;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changeemail;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private decimal changebalance;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private bool changeban;
-
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(ChangeItemCommand))]
-        private string changerole;
-
-        [ObservableProperty]
-        private byte[] changepictureBytes;
-
-
-        [ObservableProperty]
-        private Bitmap changepicturePreview;
+       
 
 
 
@@ -165,14 +113,14 @@ namespace DanichShop.ViewModels
             WindowCaption = "Предмет создан";
 
 
-            
+            SearchItem();
         }
         [RelayCommand]
         public async Task ChangeItem()
         {
             var client = Http.GetHttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ActiveUser.Token);
-            var data = new Item { Title = this.Changetitle, Cost = this.Changecost, Description = this.Changedescription, Picture = this.ChangepictureBytes, Count = this.Changecount };
+            var data = new Item {Id=this.Selecteditem.Id, Title = this.Selecteditem.Title, Cost = this.Selecteditem.Cost, Description = this.Selecteditem.Description, Picture = this.Selecteditem.Picture, Count = this.Selecteditem.Count };
             var result = await client.PostAsync("ItemControllers/changeitem", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
             if (!result.IsSuccessStatusCode)
             {
@@ -182,22 +130,26 @@ namespace DanichShop.ViewModels
 
 
             WindowCaption = "Предмет изменен";
-            
+            SearchItem();
         }
         [RelayCommand]
         public async Task ChangeUser()
         {
             var client = Http.GetHttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ActiveUser.Token);
-
-            //var result = await client.PostAsync("ItemControllers/changeuser", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
-
+            var data = new User {Id = this.Selecteduser.Id,Sname = this.Selecteduser.Sname, Login = this.Selecteduser.Login, Password = this.Selecteduser.Password, Ban = this.Selecteduser.Ban,Balance = this.Selecteduser.Balance,Email = this.Selecteduser.Email,Telephone = this.Selecteduser.Telephone, Fname = this.Selecteduser.Fname,Role = this.Selecteduser.Role };
+            var result = await client.PostAsync("Login/adminchangeuser", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
+            if (!result.IsSuccessStatusCode)
+            {
+                WindowCaption = "Ошибка изменения";
+                return;
+            }
 
 
 
 
             WindowCaption = "Юзер изменен";
-            
+            SearchItem();
         }
         [RelayCommand]
         private async Task SelectImage()

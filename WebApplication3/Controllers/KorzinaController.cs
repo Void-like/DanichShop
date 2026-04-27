@@ -59,6 +59,7 @@ namespace WebApplication3.Controllers
             return Ok(new { message = $"Товар  добавлен в корзину" });
         }
         [HttpDelete("clear/{userId}")]
+
         public async Task<IActionResult> ClearCart(int userId)
         {
             var cartItems = await _context.Korzinas.Where(x => x.UserId == userId).ToListAsync();

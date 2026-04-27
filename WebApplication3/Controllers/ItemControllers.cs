@@ -87,7 +87,7 @@ namespace WebApplication3.Controllers
                 Product.Description = itemCreate.Description;
             }          
                 Product.Cost = itemCreate.Cost;        
-            if (itemCreate.Picture == null)
+            if (itemCreate.Picture != null)
             {
                 Product.Picture = itemCreate.Picture;
             }
