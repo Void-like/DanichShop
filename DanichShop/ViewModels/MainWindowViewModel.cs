@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DanichShop.ViewModels
 {
@@ -102,7 +103,7 @@ namespace DanichShop.ViewModels
 
 
         [RelayCommand(CanExecute = nameof(CanExecuteLoginCommand))]
-        public async void Auth()
+        public async Task Auth()
         {
             var client = Http.GetHttpClient();
             var data = new LoginData { Login = this.Login, Password = this.Password };
@@ -113,7 +114,7 @@ namespace DanichShop.ViewModels
                 WindowCaption = "Ошибка входа";
                 return;
             }
-
+            
             ActiveUser.Token = await result.Content.ReadAsStringAsync();
             var handler = new JwtSecurityTokenHandler();
             var jwt = handler.ReadJwtToken(ActiveUser.Token);
@@ -132,7 +133,7 @@ namespace DanichShop.ViewModels
               
                 MainShop Window1 = new MainShop();
                 Window1.Show();
-                GetItem();
+                await GetItem();
             }
             if (ThisUser.Role == "Admin")
             {
@@ -178,8 +179,16 @@ namespace DanichShop.ViewModels
             var client = Http.GetHttpClient();
             var data = new AddBalance {Id = this.ThisUser.Id, addbalance = this.BalanceChange  };
             var result = await client.PostAsync("Login/addbalance", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
-            thisUser.Balance = thisUser.Balance + BalanceChange;
-            make();
+            if (result.IsSuccessStatusCode)
+            {
+                thisUser.Balance = thisUser.Balance + BalanceChange;
+                make();
+                WindowCaption = "Баланс пополнен";
+            }
+            else
+            {
+                WindowCaption = "Баланс не пополнен";
+            }
 
         }
         [RelayCommand]
@@ -273,24 +282,45 @@ namespace DanichShop.ViewModels
             
          
         }
+      
         [RelayCommand]
         public async Task RemoveKorzina(int cartId)
         {
-            try
-            {
+            
                 var client = Http.GetHttpClient();
-                var result = await client.DeleteAsync($"korzina/remove/{cartId}");
+                var data = new Korzina { UserID = ThisUser.Id, ItemsID = cartId};
+                var result = await client.PostAsync($"korzina/del", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
 
-                if (result.IsSuccessStatusCode)
+            if (result.IsSuccessStatusCode)
                 {
-                    WindowCaption = "Товар удалён из корзины";
+                    WindowCaption = "Количество уменьшино";
                     await LoadCart(); 
                 }
-            }
-            catch (Exception ex)
+            else
             {
-                WindowCaption = $"Ошибка: {ex.Message}";
+                WindowCaption = "Че-то не получилось";
+             
             }
+          
+        }
+        [RelayCommand]
+        public async Task BuyItem(int Id)
+        {
+            var client = Http.GetHttpClient();
+            var data = new Korzina { UserID = ThisUser.Id, ItemsID = Id };
+            var result = await client.PostAsync("Korzina/buyitem", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
+            if (result.IsSuccessStatusCode)
+            {
+                WindowCaption = "Покупка удалась";
+
+
+            }
+            else
+            {
+                WindowCaption = "Покупка не удалась";
+
+            }
+            await LoadCart();
         }
         [RelayCommand]
         public async Task GetKorzina(int Id)
@@ -301,6 +331,14 @@ namespace DanichShop.ViewModels
             var result = await client.PostAsync("Korzina/add", new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json"));
             WindowCaption = "Товар добавлен в корзину";
             
+        }
+        [RelayCommand]
+        public async Task ClearKorzina()
+        {
+            var client = Http.GetHttpClient();
+            var result = await client.DeleteAsync($"Korzina/clear/{ThisUser.Id}");
+            WindowCaption = "Корзину почистил";
+            await LoadCart();
         }
         bool CanExecuteLoginCommand()
         {

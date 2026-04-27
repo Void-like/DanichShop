@@ -8,35 +8,132 @@
         x:DataType="vm:RegistrationViewModel"
         Title="{Binding WindowCaption}">
 
-    <Window.Styles>
-		<Style Selector="TextBox">
-        <Setter Property="Padding" Value="10"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Background" Value="#F3F4F6"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="CornerRadius" Value="5"/>
+      <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Padding" Value="14,12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
+        
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#667eea"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+        </Style>
+        <Style Selector="TextBlock">
+           <Setter Property="FontSize" Value="13"/>
+           <Setter Property="Foreground" Value="#374151"/>
+           <Setter Property="FontWeight" Value="SemiBold"/>
+           <Setter Property="Margin" Value="4,0,0,0"/>
+        </Style>
+        <Style Selector="Button:pointerover">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+         
+      
     </Window.Styles>
          <Window.DataContext>
         <vm:RegistrationViewModel/>
     </Window.DataContext>
 
-   <Grid RowDefinitions="80,*">
-        <Border Background="#2c3e50" Padding="15">
-         <TextBlock Text="Регистрация аккаунта" FontSize="20" FontWeight="Bold" Foreground="White"/>
+  <Grid RowDefinitions="Auto,*,Auto">
+        
+        
+        <Border Grid.Row="0" Background="#2c3e50" Padding="25,20">
+            <StackPanel>
+                <TextBlock Text="DanichShop" FontSize="24" FontWeight="Bold"  Foreground="White" LetterSpacing="1"/>
+                <TextBlock Text="Регистрация аккаунта" FontSize="12" Foreground="#BDC3C7" Margin="0,5,0,0"/>
+            </StackPanel>
         </Border>
-   <StackPanel VerticalAlignment="Center" Margin="100" Spacing="15" Grid.Row="1">
-   <TextBox Watermark="Логин" Text="{Binding Login}"/>     
-   <TextBox Watermark="Имя" Text="{Binding FName}"/>  
-   <TextBox Watermark="Фамилия" Text="{Binding SName}"/>  
-   <TextBox Watermark="Почта" Text="{Binding Email}"/>
-   <TextBox Watermark="Телефон" Text="{Binding Telephone}"/>             
-   <TextBox Watermark="Пароль" Text="{Binding Password}"/>
-   <TextBox Watermark="Повторите пароль" Text="{Binding Repytpassword}"/>
-   <Button Content="Зарегистрироваться" Command="{Binding RegCommand}"/>
-   <TextBlock Text="Уже зареганы?"/>    
-   <Button Content="Войти" Click="Button_Click"/>
-   </StackPanel>
-   </Grid>
-    
+        
+   
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            
+            <Border Margin="40,30"  MaxWidth="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+                
+                <Border Background="White" CornerRadius="24" Padding="0">
+                    
+                    <StackPanel>
+                        
+                       
+                        
+                       
+                        <StackPanel Margin="30,25,30,25" Spacing="16">
+                            
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Логин" />
+                                <TextBox Watermark="Введите логин" Text="{Binding Login}"/>
+                            </StackPanel>
+                            
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                                <StackPanel Grid.Column="0" Spacing="8">
+                                    <TextBlock Text="Имя" />
+                                    <TextBox Watermark="Введите имя" Text="{Binding FName}"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1" Spacing="8">
+                                    <TextBlock Text="Фамилия" />
+                                    <TextBox Watermark="Введите фамилию" Text="{Binding SName}"/>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Почта" FontSize="13" FontWeight="SemiBold" Foreground="#374151" Margin="4,0,0,0"/>
+                                <TextBox Watermark="example@mail.com" Text="{Binding Email}"/>
+                            </StackPanel>
+                            
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Телефон" />
+                                <TextBox Watermark="+7 (XXX) XXX-XX-XX" Text="{Binding Telephone}"/>
+                            </StackPanel>
+                            
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
+                                <StackPanel Grid.Column="0" Spacing="8">
+                                    <TextBlock Text="Пароль" />
+                                    <TextBox Watermark="Введите пароль" Text="{Binding Password}" PasswordChar="#"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1" Spacing="8">
+                                    <TextBlock Text="Повторите пароль" />
+                                    <TextBox Watermark="Повторите пароль" Text="{Binding Repytpassword}" PasswordChar="#"/>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <Button Content="Зарегистрироваться"  Command="{Binding RegCommand}" Background="#667eea" Foreground="White" Height="48" Margin="0,15,0,0"/>
+                            
+                           
+                            <Grid ColumnDefinitions="*,Auto,*" Margin="0,20,0,15">
+                                <Border Grid.Column="0" Height="1" Background="#E5E7EB" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Column="1" Text="или" FontSize="12" Foreground="#9CA3AF" Margin="12,0"/>
+                                <Border Grid.Column="2" Height="1" Background="#E5E7EB" VerticalAlignment="Center"/>
+                            </Grid>
+                            
+                            <StackPanel Spacing="12">
+                                <TextBlock Text="Уже есть аккаунт?" Foreground="#6B7280" FontSize="13" HorizontalAlignment="Center"/>
+                                
+                                <Button Content="Войти" Click="Button_Click" Background="White" BorderBrush="#667eea" BorderThickness="2" Foreground="#667eea" Height="44"/>
+                            </StackPanel>
+                            
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </Border>
+            </Border>
+        </ScrollViewer>
+          
+        <Border Grid.Row="2" Background="#1A252F" Padding="15"/>
+
+    </Grid>
 </Window>

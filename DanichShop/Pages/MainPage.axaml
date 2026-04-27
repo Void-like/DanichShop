@@ -3,19 +3,92 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-              xmlns:vm="using:DanichShop.ViewModels"
+             xmlns:vm="using:DanichShop.ViewModels"
              x:DataType="vm:MainWindowViewModel"
-             x:Class="DanichShop.MainPage">
-      <UserControl.DataContext>
+             x:Class="DanichShop.MainPage"
+             Background="#F0F2F5">
+    
+    <UserControl.DataContext>
         <vm:MainWindowViewModel/>
     </UserControl.DataContext>
-    <Grid RowDefinitions="70,30,*" ColumnDefinitions="*,*,*">
+    
+    <UserControl.Styles>
+        <Style Selector="Border.item-card">
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="360"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+        </Style>
+        
+        <Style Selector="Button.buy-btn">
+            <Setter Property="Background" Value="#27ae60"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+        </Style>
+        
+        <Style Selector="Button.buy-btn:pointerover">
+            <Setter Property="Background" Value="#219a52"/>
+        </Style>
+        
+        <Style Selector="Button.remove-btn">
+            <Setter Property="Background" Value="#e74c3c"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="Button.remove-btn:pointerover">
+            <Setter Property="Background" Value="#c0392b"/>
+        </Style>
+        
+        <Style Selector="Button.clear-btn">
+            <Setter Property="Background" Value="#e74c3c"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="Button.clear-btn:pointerover">
+            <Setter Property="Background" Value="#c0392b"/>
+        </Style>
+    </UserControl.Styles>
 
-        <Border Background="#2c3e50" Padding="15" Grid.ColumnSpan="3">
-         <TextBlock Text="Корзина" FontSize="20" FontWeight="Bold" Foreground="White"/>
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Background="#F0F2F5">
+        
+     
+        <Border Grid.Row="0" Background="#2c3e50" Padding="25,20">
+            <StackPanel>
+                <TextBlock Text="Моя корзина" FontSize="24" FontWeight="Bold" Foreground="White" LetterSpacing="1"/>
+                <TextBlock Text="Товары, ожидающие покупки"  FontSize="12" Foreground="#BDC3C7" Margin="0,5,0,0"/>
+            </StackPanel>
         </Border>
-
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" Margin="10" >
+        
+        <Border Grid.Row="1" Background="White" Padding="20,12" Margin="0" BorderBrush="#E5E7EB" BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBlock Grid.Column="0" Text="{Binding Korzinalist.Count, StringFormat='Всего товаров: {0}'}" FontSize="14" FontWeight="SemiBold" Foreground="#4B5563" VerticalAlignment="Center"/>
+                 <TextBlock Grid.Column="1" Text="{Binding ThisUser.Balance, StringFormat='Баланс: {0:C}'}" FontSize="14" FontWeight="SemiBold" Foreground="#4B5563" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="#27ae60" VerticalAlignment="Center" Margin="0,0,20,0"/>
+                
+                <Button Grid.Column="2" Classes="clear-btn" Content="Очистить корзину" Command="{Binding ClearKorzinaCommand}"/>
+            </Grid>
+        </Border>
+        
+  
+        <ScrollViewer Grid.Row="2" Margin="15,15">
             <ItemsControl ItemsSource="{Binding Korzinalist}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -25,35 +98,42 @@
                 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                     
-                        <Border Width="220" Height="320" Background="White" Margin="8" BorderBrush="#e0e0e0" BorderThickness="1">
-                            
-                            <Grid RowDefinitions="160,Auto,Auto,Auto">
+                        <Border Classes="item-card">
+                            <Grid RowDefinitions="150,45,40,30,*">
                                 
-                              
-                                <Border Grid.Row="0" Background="White" >
-                                    <Image Source="{Binding PictureImage}"  Stretch="Uniform" VerticalAlignment="Center" MaxHeight="140"/>
+                          
+                                <Border Grid.Row="0" Background="#F9FAFB" CornerRadius="12,12,0,0">
+                                    <Image Source="{Binding PictureImage}" Stretch="Uniform" VerticalAlignment="Center" MaxHeight="130" Margin="10"/>
                                 </Border>
                                 
-                               
-                                <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="10,10,10,5" Foreground="#1a1a1a"/>
-                                
-                                
-                                <TextBlock Grid.Row="2"  Text="{Binding Description}" FontSize="11"  TextWrapping="Wrap" Margin="10,0,10,5" Foreground="#666" MaxHeight="35"/>
-                                
                            
-                                <Grid Grid.Row="3" Margin="10,0,10,10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                         <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap"  Margin="10,8,10,0"  Foreground="#1a1a1a" MaxHeight="40"/>
+                                
+                         
+                                <TextBlock Grid.Row="2"  Text="{Binding Description}" FontSize="11"  TextWrapping="Wrap" Margin="10,5,10,0" Foreground="#6B7280" MaxHeight="35"/>
+                                
+                             
+                                <Border Grid.Row="3"  Background="#F9FAFB" CornerRadius="8" Margin="10,5,10,5" Padding="8,4">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="Количество:" FontSize="12" Foreground="#6B7280"/>
+                                        <TextBlock Text="{Binding Count}" FontSize="12" FontWeight="Bold" Foreground="#27ae60" Margin="8,0,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                                
+                            
+                                <Border Grid.Row="4"  Background="White" CornerRadius="0,0,12,12" Padding="10,5,10,12">
                                     
-                                    <TextBlock Grid.Column="0" Text="{Binding Cost, StringFormat='Цена: {0}'}"  FontSize="16"  FontWeight="Bold" Foreground="#cc0000" VerticalAlignment="Center"/>
-                                    
-                                    <Button Grid.Column="1"  Content="Купить" Background="#cc0000" Foreground="White" Padding="12,5" FontSize="12" FontWeight="Bold"/>
-                                    <Button Grid.Column="2"  Content="Убрать из корзины" Background="#cc0000" Foreground="White" Padding="12,5" FontSize="12" FontWeight="Bold"/>
-                                </Grid>
+                                    <Grid ColumnDefinitions="*,Auto,Auto">
+                                       
+                                        <TextBlock Grid.Column="0" Text="{Binding TotalPrice, StringFormat='|{0:C}|'}" FontSize="16"  FontWeight="Bold" Foreground="#27ae60" VerticalAlignment="Center"/>
+                                        
+                                  
+                                        <Button Grid.Column="1" Classes="buy-btn" Content="Купить" Command="{Binding  $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).BuyItem}" CommandParameter="{Binding Id}"/>
+                                        
+                               
+                                        <Button Grid.Column="2" Classes="remove-btn" Content="Убрать" Command="{Binding  $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).RemoveKorzina}" CommandParameter="{Binding Id}"/>
+                                    </Grid>
+                                </Border>
                                 
                             </Grid>
                         </Border>
@@ -63,10 +143,5 @@
         </ScrollViewer>
         
         
-
-
-	 
-
-
-  </Grid>
+    </Grid>
 </UserControl>

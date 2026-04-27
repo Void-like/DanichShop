@@ -2,31 +2,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
              xmlns:vm="using:DanichShop.ViewModels"
              x:Class="DanichShop.CatalogePage"
-             x:DataType="vm:MainWindowViewModel">
-     <UserControl.DataContext>
+             x:DataType="vm:MainWindowViewModel"
+             Background="#F0F2F5">
+    
+    <UserControl.DataContext>
         <vm:MainWindowViewModel/>
     </UserControl.DataContext>
 
-   <Grid RowDefinitions="70,30,*" ColumnDefinitions="*,*,*">
-       
-        <Border Background="#2c3e50" Padding="15" Grid.ColumnSpan="3">
-            <TextBlock Text="Товары" FontSize="20"  FontWeight="Bold" Foreground="White"/>
+    <UserControl.Styles>
+        <Style Selector="Border.item-card">
+            <Setter Property="Width" Value="240"/>
+            <Setter Property="Height" Value="340"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="12"/>
+        </Style>
+        
+        <Style Selector="TextBlock.item-title">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10,10,10,5"/>
+            <Setter Property="Foreground" Value="#1a1a1a"/>
+            <Setter Property="MaxHeight" Value="40"/>
+        </Style>
+        
+        <Style Selector="TextBlock.item-description">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Margin" Value="10,0,10,5"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Setter Property="MaxHeight" Value="35"/>
+        </Style>
+        
+        <Style Selector="Button.cart-btn">
+            <Setter Property="Background" Value="#27ae60"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        
+        <Style Selector="Button.cart-btn:pointerover">
+            <Setter Property="Background" Value="#219a52"/>
+        </Style>
+        
+        <Style Selector="TextBox.search-box">
+            <Setter Property="Padding" Value="14,12"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="10,5,5,5"/>
+        </Style>
+        
+        <Style Selector="TextBox.search-box:focus">
+            <Setter Property="BorderBrush" Value="#667eea"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        
+        <Style Selector="Button.search-btn">
+            <Setter Property="Background" Value="#2c3e50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="24,10"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5,5,10,5"/>
+        </Style>
+        
+        <Style Selector="Button.search-btn:pointerover">
+            <Setter Property="Background" Value="#1a252f"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        
+  
+        <Border Grid.Row="0" Background="#2c3e50" Padding="25,20">
+            <StackPanel>
+                <TextBlock Text="Каталог товаров" FontSize="24" FontWeight="Bold" Foreground="White"  LetterSpacing="1"/>
+                <TextBlock Text="Цифровые товары и ключи" FontSize="12" Foreground="#BDC3C7" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+        
+  
+        <Border Grid.Row="1" Background="White" Padding="15,10" BorderBrush="#E5E7EB" BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBox Grid.Column="0" Classes="search-box" Watermark="🔍 Поиск по названию или описанию..." Text="{Binding Searchthisitem}"/>
+                
+                <Button Grid.Column="1" Classes="search-btn" Content="Найти" Command="{Binding SearchItemCommand}"/>
+            </Grid>
         </Border>
         
      
-       <Button Content="Поиск" Grid.Row="1" Command="{Binding SearchItemCommand}" Grid.Column="3"/>
-      
-     
-      <TextBox Grid.Row="1" Watermark="🔍 Поиск..." Text="{Binding Searchthisitem}" Background="White" BorderThickness="0" CornerRadius="5" Margin="10,5,5,5" Grid.ColumnSpan="2"  />
-       
-        
-        
-      
-       
-        <ScrollViewer Grid.Row="2" Grid.ColumnSpan="3" Margin="10">
+        <ScrollViewer Grid.Row="2" Margin="15,15">
             <ItemsControl ItemsSource="{Binding Listitems}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -36,34 +115,29 @@
                 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                     
-                        <Border Width="220" Height="320" Background="White" Margin="8" BorderBrush="#e0e0e0" BorderThickness="1">
-                            
-                            <Grid RowDefinitions="160,Auto,Auto,Auto">
-                                
-                              
-                                <Border Grid.Row="0" Background="White" >
-                                    <Image Source="{Binding PictureImage}"  Stretch="Uniform" VerticalAlignment="Center" MaxHeight="140"/>
-                                </Border>
+                        <Border Classes="item-card">
+                            <Grid RowDefinitions="150,45,40,*">
                                 
                                
-                                <TextBlock Grid.Row="1" Text="{Binding Title}" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" Margin="10,10,10,5" Foreground="#1a1a1a"/>
+                                <Border Grid.Row="0" Background="#F9FAFB" CornerRadius="12,12,0,0">
+                                    <Image Source="{Binding PictureImage}" Stretch="Uniform" VerticalAlignment="Center" MaxHeight="130" Margin="10"/>
+                                </Border>
                                 
-                                
-                                <TextBlock Grid.Row="2"  Text="{Binding Description}" FontSize="11"  TextWrapping="Wrap" Margin="10,0,10,5" Foreground="#666" MaxHeight="35"/>
-                                
-                           
-                                <Grid Grid.Row="3" Margin="10,0,10,10">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
+                             
+                                <TextBlock Grid.Row="1" Text="{Binding Title}" Classes="item-title"/>
+                                            
+                                <TextBlock Grid.Row="2" Text="{Binding Description}" Classes="item-description"/>
+                                   
+                                <Border Grid.Row="3" Background="White" CornerRadius="0,0,12,12" Padding="10,5,10,12">
                                     
-                                    <TextBlock Grid.Column="0" Text="{Binding Cost, StringFormat='Цена: {0}'}"  FontSize="16"  FontWeight="Bold" Foreground="#cc0000" VerticalAlignment="Center"/>
-                                    
-                                    <Button Grid.Column="1"  Content="В корзину"  Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).GetKorzina}"
-        CommandParameter="{Binding Id}"  Background="#cc0000" Foreground="White" Padding="12,5" FontSize="12" FontWeight="Bold"/>
-                                </Grid>
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        
+                                        <TextBlock Grid.Column="0" Text="{Binding Cost, StringFormat='|{0:C}|'}" FontSize="16" FontWeight="Bold" Foreground="#27ae60"  VerticalAlignment="Center"/>
+                                        
+                                        
+                                        <Button Grid.Column="1"  Classes="cart-btn" Content="В корзину" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).GetKorzina}" CommandParameter="{Binding Id}"/>
+                                    </Grid>
+                                </Border>
                                 
                             </Grid>
                         </Border>

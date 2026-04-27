@@ -25,7 +25,7 @@ namespace WebApplication3.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddToCart([FromBody] KorzinaDTO dto)
         {
-            
+
             var user = await _context.Users.FindAsync(dto.UserID);
             if (user == null)
                 return BadRequest(new { message = $"Пользователь с ID {dto.UserID} не найден" });
@@ -38,14 +38,14 @@ namespace WebApplication3.Controllers
 
             if (existingItem != null)
             {
-           
+
                 existingItem.Count = existingItem.Count + 1;
                 await _context.SaveChangesAsync();
 
-                return Ok(new {message = $"Количество товара  увеличено"});
+                return Ok(new { message = $"Количество товара  увеличено" });
             }
 
-           
+
             var cartItem = new Korzina
             {
                 UserId = dto.UserID,
@@ -56,37 +56,47 @@ namespace WebApplication3.Controllers
             _context.Korzinas.Add(cartItem);
             await _context.SaveChangesAsync();
 
-            return Ok(new  {message = $"Товар  добавлен в корзину"});
+            return Ok(new { message = $"Товар  добавлен в корзину" });
+        }
+        [HttpDelete("clear/{userId}")]
+        public async Task<IActionResult> ClearCart(int userId)
+        {
+            var cartItems = await _context.Korzinas.Where(x => x.UserId == userId).ToListAsync();
+            if (cartItems.Count == 0)
+            {
+                return Ok(new { message = "Корзина уже пуста" });
+            }
+            _context.Korzinas.RemoveRange(cartItems);
+            await _context.SaveChangesAsync();
+
+            return Ok(new{message = "корзина очищена"});
         }
 
-       
         [HttpGet("get/{userId}")]
         public async Task<IActionResult> GetUserCart(int userId)
         {
-            // Проверяем, есть ли пользователь
+
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
             {
                 return NotFound(new { message = "Пользователь не найден" });
             }
 
-            // Получаем все записи корзины этого пользователя
-            var cartItems = await _context.Korzinas
-                .Where(c => c.UserId == userId)
-                .ToListAsync();
 
-            // Если корзина пуста
+            var cartItems = await _context.Korzinas.Where(c => c.UserId == userId).ToListAsync();
+
+
             if (cartItems == null || cartItems.Count == 0)
             {
                 return Ok(new List<Item>());
             }
 
-            // Собираем результат с информацией о товарах
+
             var result = new List<Item>();
 
             foreach (var cart in cartItems)
             {
-               
+
                 var item = await _context.Items.FindAsync(cart.ItemId);
                 var existingItem = await _context.Korzinas.FirstOrDefaultAsync(x => x.UserId == userId && x.ItemId == cart.ItemId);
                 if (item != null)
@@ -107,6 +117,90 @@ namespace WebApplication3.Controllers
             }
 
             return Ok(result);
+        }
+        [HttpPost("buyitem")]
+        [Authorize]
+        public async Task<IActionResult> Buy([FromBody] KorzinaDTO dto)
+        {
+            var user = await _context.Users.FindAsync(dto.UserID);
+            if (user == null)
+            {
+                return BadRequest(new { message = $"Пользователь с ID {dto.UserID} не найден" });
+            }
+            var item = await _context.Items.FindAsync(dto.ItemsID);
+            if (item == null)
+            {
+                return BadRequest(new { message = $"Товар с ID {dto.ItemsID} не найден" });
+            }
+            var existingItem = await _context.Korzinas.FirstOrDefaultAsync(x => x.UserId == dto.UserID && x.ItemId == dto.ItemsID);
+           
+            decimal price = item.Cost * existingItem.Count;
+            if (price > user.Balance) 
+            {
+                return BadRequest(new { message = "Недостаточно средств" });
+            }
+            else
+            {
+                user.Balance = user.Balance - price;
+                _context.Korzinas.Remove(existingItem);
+                await _context.SaveChangesAsync();
+                return BadRequest(new { message = "Покупка успешна" });
+
+            }
+
+        }
+        [HttpPost("del")]
+        public async Task<IActionResult> DellToCart([FromBody] KorzinaDTO dto)
+        {
+
+            var user = await _context.Users.FindAsync(dto.UserID);
+            if (user == null)
+            {
+                return BadRequest(new { message = $"Пользователь с ID {dto.UserID} не найден" });
+            }
+            var item = await _context.Items.FindAsync(dto.ItemsID);
+            if (item == null)
+            {
+                return BadRequest(new { message = $"Товар с ID {dto.ItemsID} не найден" });
+            }
+            var existingItem = await _context.Korzinas.FirstOrDefaultAsync(x => x.UserId == dto.UserID && x.ItemId == dto.ItemsID);
+
+            if (existingItem != null)
+            {
+                if (existingItem.Count <= 1)
+                {
+                   
+                    _context.Korzinas.Remove(existingItem);
+                    await _context.SaveChangesAsync();
+
+                    return Ok(new { message = $"Товар удален" });
+                }
+                else
+                {
+                    existingItem.Count = existingItem.Count - 1;
+                    await _context.SaveChangesAsync();
+
+
+                    var cartItem = new Korzina
+                    {
+                        UserId = dto.UserID,
+                        ItemId = dto.ItemsID,
+                        Count = dto.Count
+                    };
+
+                    
+                    await _context.SaveChangesAsync();
+
+                    return Ok(new { message = "Товар убавлен" });
+                }
+            }
+            else
+            {
+                return BadRequest(new { message = "какая-то ошибка" });
+
+
+
+            }
         }
     }
 }

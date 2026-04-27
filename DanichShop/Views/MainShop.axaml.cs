@@ -9,7 +9,7 @@ public partial class MainShop : Window
     public MainShop()
     {
         InitializeComponent();
-        ContentPage.Content = new MainPage();
+        ContentPage.Content = new CatalogePage();
     }
 
     private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

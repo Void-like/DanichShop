@@ -108,6 +108,8 @@ namespace WebApplication3.Controllers
 
 
         }
+
+        [Authorize]
         [HttpGet("getitem")]
         public async Task<ActionResult<List<Item>>> GetItems()
         {

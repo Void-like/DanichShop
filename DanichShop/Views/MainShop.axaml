@@ -4,46 +4,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
         x:Class="DanichShop.MainShop"
-        Title="MainShop">
-    <Window.Styles>		
-		<Style Selector="Button.selector">
-        <Setter Property="FontSize" Value="20"/>
-        <Setter Property="Height" Value="100"/>
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="CornerRadius" Value="5"/>
-        </Style>
+        Title="MainShop"
+        MinWidth="800" MinHeight="600"
+        Background="#F0F2F5">
 
-        <Style Selector="StackPanel">
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+    <Window.Styles>
+        
+        <Style Selector="Button.nav-button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="56"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#4B5563"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,12"/>
         </Style>
+        
+        <Style Selector="Button.nav-button:pointerover">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#667eea"/>
+        </Style>
+        
+        <Style Selector="Button.nav-button:pressed">
+            <Setter Property="Background" Value="#E5E7EB"/>
+        </Style>
+        
+   
+        <Style Selector="TextBlock.icon">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+        </Style>
+        
+      
+        <Style Selector="Border.header">
+            <Setter Property="Background" Value="#2c3e50"/>
+            <Setter Property="Padding" Value="25,15"/>
+        </Style>
+        
     </Window.Styles>
 
-
-  <Grid RowDefinitions="*, Auto">
-
-           <ContentControl x:Name="ContentPage" Margin="0"/>
-
-	 <Border Grid.Row="1" Background="White" BorderBrush="#F3F4F6" BorderThickness="0,1,0,0" Padding="0,10,0,10">
-            <Grid ColumnDefinitions="*, *, *">
+    <Grid RowDefinitions="Auto,*,Auto">
+        
+      
+        <Border Grid.Row="0" Background="#2c3e50">
+            <Grid ColumnDefinitions="*,Auto" Margin="20,10">
+                <TextBlock Text="DanichShop" FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" LetterSpacing="1"/>
                 
-              
-
-                <StackPanel Grid.Column="0"> 
-                      <Button Classes="selector" Content="Каталог" Click="Button_Click_1"/>     
-                </StackPanel>
-
-                  <StackPanel Grid.Column="1">
-                     <Button Classes="selector"  Content="Корзина" Click="Button_Click"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2">                  
-                      <Button Classes="selector" Content="Аккаунт" Click="Button_Click_2"/>
-                </StackPanel>
-
+               
             </Grid>
-            </Border>  
-
-
-  </Grid>
+        </Border>
+        
+     
+        <ContentControl Grid.Row="1" x:Name="ContentPage" Margin="0" Background="#F0F2F5"/>
+      
+        <Border Grid.Row="2" Background="White" BorderBrush="#E5E7EB" BorderThickness="0,1,0,0">
+            
+            <Grid ColumnDefinitions="*, *, *" MaxWidth="600" HorizontalAlignment="Center">
+                
+           
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="0,5">
+                    <Button Classes="nav-button" Content="📦  Каталог" Click="Button_Click_1"/>
+                </StackPanel>
+                
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,5">
+                    <Button Classes="nav-button"  Content="🛒  Корзина" Click="Button_Click"/>
+                </StackPanel>
+                
+                
+                <StackPanel Grid.Column="2"  HorizontalAlignment="Center" Margin="0,5">
+                    <Button Classes="nav-button"  Content="👤  Аккаунт" Click="Button_Click_2"/>
+                </StackPanel>
+                
+            </Grid>
+        </Border>
+        
+    </Grid>
 </Window>

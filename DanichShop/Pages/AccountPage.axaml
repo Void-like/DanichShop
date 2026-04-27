@@ -3,51 +3,144 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
-              xmlns:vm="using:DanichShop.ViewModels"
+             xmlns:vm="using:DanichShop.ViewModels"
              x:DataType="vm:MainWindowViewModel"
              x:Class="DanichShop.AccountPage">
-     <UserControl.DataContext>
+    
+    <UserControl.DataContext>
         <vm:MainWindowViewModel/>
     </UserControl.DataContext>
-        <UserControl.Styles>
-		<Style Selector="TextBox">
-        <Setter Property="Padding" Value="10"/>
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Background" Value="#F3F4F6"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="CornerRadius" Value="5"/>
+    
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Padding" Value="14,12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E2E8F0"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+        
+        <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#667eea"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+        
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+        
+        <Style Selector="Button:pointerover">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+        
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1F2937"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+        </Style>
+        
+        <Style Selector="Border.section">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
         </Style>
     </UserControl.Styles>
 
-
-
-     <Grid RowDefinitions="Auto,*">
-        <Border Background="#2c3e50" Padding="15">
-         <TextBlock Text="Настройки аккаунта" FontSize="20" FontWeight="Bold" Foreground="White"/>
-        </Border>
-         <StackPanel Grid.Row="1" Margin="100,300,0,0">
-         <TextBlock Text="{Binding Balanceaccount, StringFormat='Баланс {0}'}"/>
-         <TextBox Watermark="" Text="{Binding BalanceChange}"/>
-		 <Button Content="Пополнить баланс" Command="{Binding AddBalanceCommand}"/>	 
-
-         </StackPanel>
-        
-         
-
-       <StackPanel Margin="100,400,150,0" Grid.Row="1">
-           <TextBox Watermark="Логин" Text="{Binding Changelogin}"/>
-           <TextBox Watermark="Имя" Text="{Binding Changefname}"/>
-           <TextBox Watermark="Фамилия" Text="{Binding Changesname}"/>
-           <TextBox Watermark="Почта"  Text="{Binding Changeemail}"/>
-           <TextBox Watermark="Телефон" Text="{Binding Changetelephone}"/>
-           <Button Content="Изменить" Margin="0,10,0,0" Command="{Binding ChangeAccountCommand}"/>
-           <TextBox Watermark="Cтарый пароль" Text="{Binding OldPassword}"/>
-           <TextBox Watermark="Новый пароль" Text="{Binding NewPassword}"/>
-           <TextBox Watermark="Потвердить новый пароль" Text="{Binding RNewPassword}"/>
-           <Button Content="Изменить пароль" Margin="0,30,80,0" Command="{Binding ChangePasswordCommand}"/>
-       </StackPanel>
-      
-
-
-  </Grid>
+    <Grid Background="#F0F2F5">
+        <Grid RowDefinitions="Auto,Auto">
+            
+           
+            <Border Grid.Row="0" Background="#2c3e50" Padding="25,20">
+                <StackPanel>
+                    <TextBlock Text="Настройки аккаунта" FontSize="24"  FontWeight="Bold"  Foreground="White" LetterSpacing="1"/>
+                    <TextBlock Text="Управление профилем" FontSize="12" Foreground="#BDC3C7" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+            
+           
+            <ScrollViewer Grid.Row="1" Margin="40,30">
+                <StackPanel>
+                    
+       
+                    <Border Classes="section" Background="#667eea">
+                        <Grid ColumnDefinitions="2*,1*">
+                            
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Баланс счета" FontSize="14" Foreground="#C7D2FE" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding Balanceaccount, StringFormat=':{0:C}'}" FontSize="36" FontWeight="Bold" Foreground="White"/>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Column="1">
+                                <TextBox Watermark="Сумма пополнения" Text="{Binding BalanceChange}" Background="White" Margin="0,0,0,10"/>
+                                <Button Content="Пополнить баланс" Command="{Binding AddBalanceCommand}" Background="#2c3e50" Foreground="White" Height="42"/>
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Border>
+                    
+                 
+                    <Border Classes="section">
+                        <StackPanel>
+                            <TextBlock Text="Личные данные" Classes="section-title" Margin="0,0,0,20"/>
+                            
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                                
+                                <StackPanel Grid.Column="0">
+                                    <TextBox Watermark="Логин" 
+                                             Text="{Binding Changelogin}"/>
+                                    <TextBox Watermark="Имя" 
+                                             Text="{Binding Changefname}"/>
+                                    <TextBox Watermark="Фамилия" 
+                                             Text="{Binding Changesname}"/>
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1">
+                                    <TextBox Watermark="Почта" Text="{Binding Changeemail}"/>
+                                    <TextBox Watermark="Телефон" Text="{Binding Changetelephone}"/>
+                                </StackPanel>
+                                
+                            </Grid>
+                            
+                            <Button Content="Сохранить изменения" Command="{Binding ChangeAccountCommand}" Background="#667eea" Foreground="White" Height="46" FontSize="14"/>
+                        </StackPanel>
+                    </Border>
+                    
+                  
+                    <Border Classes="section">
+                        <StackPanel>
+                            <TextBlock Text="Смена пароля" Classes="section-title" Margin="0,0,0,20"/>
+                            
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                                
+                                <StackPanel Grid.Column="0">
+                                    <TextBox Watermark="Старый пароль" Text="{Binding OldPassword}" PasswordChar="●"/>
+                                   
+                                </StackPanel>
+                                
+                                <StackPanel Grid.Column="1">
+                                     <TextBox Watermark="Новый пароль" Text="{Binding NewPassword}" PasswordChar="●"/>
+                                    <TextBox Watermark="Подтвердить новый пароль" Text="{Binding RNewPassword}" PasswordChar="●"/>
+                                </StackPanel>
+                                
+                            </Grid>
+                            
+                            <Button Content="Изменить пароль" Command="{Binding ChangePasswordCommand}" Background="#2c3e50" Foreground="White" Height="46" FontSize="14"/>
+                        </StackPanel>
+                    </Border>
+                    
+                </StackPanel>
+            </ScrollViewer>
+            
+        </Grid>
+    </Grid>
 </UserControl>

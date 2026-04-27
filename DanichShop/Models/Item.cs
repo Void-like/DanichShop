@@ -32,9 +32,13 @@ namespace DanichShop.Models
                 return new Bitmap(ms);
             }
         }
+        public decimal TotalPrice {
 
-
-
+            get
+            {
+              return  Cost * Count;
+            }
+        }
         public int Count { get; set; }
     }
 }
