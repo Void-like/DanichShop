@@ -26,4 +26,6 @@ public partial class User
     public string Role { get; set; } = null!;
 
     public virtual ICollection<Korzina> Korzinas { get; set; } = new List<Korzina>();
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

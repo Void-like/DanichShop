@@ -18,4 +18,6 @@ public partial class Item
     public int Count { get; set; }
 
     public virtual ICollection<Korzina> Korzinas { get; set; } = new List<Korzina>();
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

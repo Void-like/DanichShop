@@ -142,7 +142,18 @@ namespace WebApplication3.Controllers
             }
             else
             {
-                user.Balance = user.Balance - price;
+                var newOrder = new Order
+                {
+                    ItemId = dto.ItemsID,
+                    UserId = dto.UserID,
+                    Count = existingItem.Count,
+                    Price = price,
+                    OrderDate = DateTime.Now,
+                };
+                    
+                    
+                    user.Balance = user.Balance - price;
+                await _context.Orders.AddAsync(newOrder);
                 _context.Korzinas.Remove(existingItem);
                 await _context.SaveChangesAsync();
                 return BadRequest(new { message = "Покупка успешна" });
