@@ -16,7 +16,7 @@ namespace DanichShop.Utils
             if (client == null)
             {
                 client = new HttpClient();
-                client.BaseAddress = new Uri("http://37.8.146.204:7081/");
+                client.BaseAddress = new Uri("http://localhost:5173/");
             }
 
             if (ActiveUser.Token != null)
