@@ -6,7 +6,7 @@
         xmlns:vm="using:DanichShop.ViewModels"
         x:Class="DanichShop.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="{Binding WindowCaption}"
+        Title="{Binding WindowCaption,StringFormat='DanichShop - {0}'}"
         MinWidth="450" MinHeight="550"
         Background="#F0F2F5">
 

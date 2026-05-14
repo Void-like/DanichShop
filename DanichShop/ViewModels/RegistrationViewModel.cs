@@ -62,7 +62,6 @@ namespace DanichShop.ViewModels
 
 
 
-            close();
         }
 
 

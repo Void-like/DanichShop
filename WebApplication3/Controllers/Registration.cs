@@ -29,50 +29,56 @@ namespace WebApplication3.Controllers
             {
                 return new UnauthorizedObjectResult(new { message = "Повторите правильно пароль" });
             }
-            if (string.IsNullOrWhiteSpace(request.Login) ||
-                string.IsNullOrWhiteSpace(request.Password) ||
-                string.IsNullOrWhiteSpace(request.FirstName) ||
-                string.IsNullOrWhiteSpace(request.LastName))
+            if (string.IsNullOrWhiteSpace(request.Login) || string.IsNullOrWhiteSpace(request.Password) || string.IsNullOrWhiteSpace(request.FirstName) ||string.IsNullOrWhiteSpace(request.LastName))
             {
                 return new UnauthorizedObjectResult(new { message = "Все поля заполняем" });
             }
-
-           
-            var existingUser = await _context.Users
-                .FirstOrDefaultAsync(u => u.Login == request.Login);
+            if (!request.Telephone.StartsWith("+7") && !request.Telephone.StartsWith("8") && request.Telephone.Length>11 && request.Telephone.Length < 10)
+            {
+                return new UnauthorizedObjectResult(new { message = "Такого номера телефона нету" });
+            }
+            if (!request.Email.Contains("@"))
+            {
+                return new UnauthorizedObjectResult(new { message = " Такой почты нет" });;
+            }
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Login == request.Login);
 
             if (existingUser != null)
             {
                 return new UnauthorizedObjectResult(new { message = "Такой пользователь уже есть" });
             }
-
-           
-            var newUser = new User
+            else
             {
-                Fname = request.FirstName,
-                Sname = request.LastName,
-                Login = request.Login,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                Role = "User",
-                Ban = false,
-                Telephone = request.Telephone,
-                Email = request.Email,
-                Balance = 0
-            };
+                var newUser = new User
+                {
+                    Fname = request.FirstName,
+                    Sname = request.LastName,
+                    Login = request.Login,
+                    Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                    Role = "User",
+                    Ban = false,
+                    Telephone = request.Telephone,
+                    Email = request.Email,
+                    Balance = 0
+                };
+                try
+                {
+                    await _context.Users.AddAsync(newUser);
+                    await _context.SaveChangesAsync();
+                    return Ok(new { success = true, message = "Регистрация успешна", user = newUser });
+
+                }
+                catch (Exception ex)
+                {
+                    return new UnauthorizedObjectResult(new { message = $"Ошибка при сохранении: {ex.Message}" });
+
+                }
+            }
+           
+           
 
        
-            try
-            {
-                await _context.Users.AddAsync(newUser);
-                await _context.SaveChangesAsync();
-                return Ok(new { success = true, message = "Регистрация успешна", user = newUser });
-
-            }
-            catch (Exception ex)
-            {
-                return new UnauthorizedObjectResult(new { message = $"Ошибка при сохранении: {ex.Message}" });
-              
-            }
+          
         }
         
 

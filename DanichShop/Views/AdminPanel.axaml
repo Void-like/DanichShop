@@ -7,7 +7,7 @@
         x:Class="DanichShop.AdminPanel"
         xmlns:vm="using:DanichShop.ViewModels"        
         x:DataType="vm:AdminViewModel"
-        Title="{Binding WindowCaption}"
+        Title="{Binding WindowCaption,StringFormat='DanichShop - {0}'}"
         Background="#F0F2F5">
 
     <Window.DataContext>
@@ -235,7 +235,7 @@
                         
                         <Grid ColumnDefinitions="*,Auto">
                             <TextBox Grid.Column="0"  Watermark="Поиск по имени или фамилии..." Text="{Binding Searchchangeuser}" Margin="0,0,10,0"/>
-                            <Button Grid.Column="1" Content="🔍"  Command="{Binding SearchItemCommand}" Background="#2c3e50" Foreground="White" Width="60"/>
+                            <Button Grid.Column="1" Content="Поиск"  Command="{Binding SearchItemCommand}" Background="#2c3e50" Foreground="White" Width="60"/>
                         </Grid>
                         
                         <ScrollViewer Height="550" Margin="0,15,0,0">

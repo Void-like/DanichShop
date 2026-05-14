@@ -6,7 +6,7 @@
          xmlns:vm="using:DanichShop.ViewModels"
         x:Class="DanichShop.Views.Registration"
         x:DataType="vm:RegistrationViewModel"
-        Title="{Binding WindowCaption}">
+        Title="{Binding WindowCaption,StringFormat='DanichShop - {0}'}">
 
       <Window.Styles>
         <Style Selector="TextBox">
