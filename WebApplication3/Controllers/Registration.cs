@@ -12,7 +12,7 @@ namespace WebApplication3.Controllers
 {
     
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class Registration : ControllerBase
     {
         private readonly DanichshopContext _context;
@@ -61,18 +61,12 @@ namespace WebApplication3.Controllers
                     Email = request.Email,
                     Balance = 0
                 };
-                try
-                {
-                    await _context.Users.AddAsync(newUser);
+                await _context.Users.AddAsync(newUser);
                     await _context.SaveChangesAsync();
                     return Ok(new { success = true, message = "Регистрация успешна", user = newUser });
 
-                }
-                catch (Exception ex)
-                {
-                    return new UnauthorizedObjectResult(new { message = $"Ошибка при сохранении: {ex.Message}" });
-
-                }
+                
+                
             }
            
            

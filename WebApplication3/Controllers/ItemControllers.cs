@@ -8,7 +8,7 @@ using WebApplication3.Models.DTO.Auth;
 
 namespace WebApplication3.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ItemControllers : ControllerBase
     {
@@ -47,18 +47,12 @@ namespace WebApplication3.Controllers
                Picture = itemCreate.Picture,
                Count = itemCreate.Count,
             };
-            try
-            {
+           
                 await _context.Items.AddAsync(newItem);
                 await _context.SaveChangesAsync();
                 return Ok(new { success = true, message = "Товар добавлен", item = newItem });
 
-            }
-            catch (Exception ex)
-            {
-                return new UnauthorizedObjectResult(new { message = $"Ошибка при сохранении: {ex.Message}" });
-
-            }
+          
 
            
         }
@@ -93,21 +87,15 @@ namespace WebApplication3.Controllers
             }
                Product.Count = itemCreate.Count;
          
-            try
-            {
-              
+            
                 await _context.SaveChangesAsync();
                 return Ok(new { success = true, message = "Товар изменен"});
 
-            }
-            catch (Exception ex)
-            {
-                return new UnauthorizedObjectResult(new { message = "Ошибка при сохранении" });
-
-            }
-
-
         }
+         
+
+
+        
         [Authorize]
         [HttpDelete("Delete/{itemId}")]
 

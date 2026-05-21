@@ -17,7 +17,7 @@ namespace WebApplication3.Controllers
 {
 
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class LoginController : Controller
     {
         private readonly DanichshopContext _context;

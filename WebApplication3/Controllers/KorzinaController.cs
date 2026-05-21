@@ -7,7 +7,7 @@ using WebApplication3.DB;
 using WebApplication3.Models.DTO.Auth;
 namespace WebApplication3.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class KorzinaController : ControllerBase
@@ -184,7 +184,6 @@ namespace WebApplication3.Controllers
                    
                     _context.Korzinas.Remove(existingItem);
                     await _context.SaveChangesAsync();
-
                     return Ok(new { message = $"Товар удален" });
                 }
                 else
@@ -209,8 +208,6 @@ namespace WebApplication3.Controllers
             else
             {
                 return BadRequest(new { message = "какая-то ошибка" });
-
-
 
             }
         }
