@@ -62,8 +62,8 @@ namespace WebApplication3.Controllers
                     Balance = 0
                 };
                 await _context.Users.AddAsync(newUser);
-                    await _context.SaveChangesAsync();
-                    return Ok(new { success = true, message = "Регистрация успешна", user = newUser });
+                await _context.SaveChangesAsync();
+                return Ok(new { success = true, message = "Регистрация успешна", user = newUser });
 
                 
                 

@@ -32,14 +32,10 @@ namespace WebApplication3.Controllers
         public async Task<ActionResult> Login(LoginData loginData)
         {
             var user = await _context.Users.FirstOrDefaultAsync(s => s.Login == loginData.Login);
-            if (user == null)
-                return new NotFoundResult();
-            if (!VerifyPassword(loginData.Password, user.Password))
-                return new UnauthorizedObjectResult(new { message = "Неверный пароль" });
-            if(user.Ban == true)
-            {
-                return new UnauthorizedObjectResult(new { message = "ТЫ ЗАБАНЕН" });
-            }
+            if (user == null) return new NotFoundResult();
+            if (!VerifyPassword(loginData.Password, user.Password)) return new UnauthorizedObjectResult(new { message = "Неверный пароль" });
+            if(user.Ban == true) return new UnauthorizedObjectResult(new { message = "ТЫ ЗАБАНЕН" });
+           
 
 
 
@@ -74,14 +70,12 @@ namespace WebApplication3.Controllers
             try
             {
                 
-                if (changePassword.Id == null)
-                    return new UnauthorizedObjectResult(new { message = "Вы не зарегистрированы" });
+                if (changePassword.Id == null) return new UnauthorizedObjectResult(new { message = "Вы не зарегистрированы" });
 
               
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == changePassword.Id);
 
-                if (!BCrypt.Net.BCrypt.Verify(changePassword.OldPassword, user.Password))
-                    return BadRequest(new { message = "Введите старый пароль" });
+                if (!BCrypt.Net.BCrypt.Verify(changePassword.OldPassword, user.Password)) return BadRequest(new { message = "Введите старый пароль" });
 
                 user.Password = BCrypt.Net.BCrypt.HashPassword(changePassword.NewPassword);
                 await _context.SaveChangesAsync();

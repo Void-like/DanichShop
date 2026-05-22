@@ -25,7 +25,14 @@
             <Setter Property="Padding" Value="24,12"/>
         </Style>
         
-       
+        <Style Selector="Button.nav-button:pointerover">
+            <Setter Property="Background" Value="#F3F4F6"/>
+            <Setter Property="Foreground" Value="#667eea"/>
+        </Style>
+
+        <Style Selector="Button.nav-button:pressed">
+            <Setter Property="Background" Value="#E5E7EB"/>
+        </Style>
         
    
         <Style Selector="TextBlock.icon">
