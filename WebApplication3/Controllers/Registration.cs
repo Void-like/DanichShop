@@ -23,7 +23,7 @@ namespace WebApplication3.Controllers
         }
        
         [HttpPost("registration")]
-        public async Task<IActionResult> Register( Register request)
+        public async Task<IActionResult> Register([FromBody] Register request)
         {
             if (request.Password != request.RPassword)
             {

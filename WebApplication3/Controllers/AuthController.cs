@@ -29,7 +29,7 @@ namespace WebApplication3.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult> Login(LoginData loginData)
+        public async Task<ActionResult> Login([FromBody] LoginData loginData)
         {
             var user = await _context.Users.FirstOrDefaultAsync(s => s.Login == loginData.Login);
             if (user == null) return new NotFoundResult();
@@ -65,7 +65,7 @@ namespace WebApplication3.Controllers
         [HttpPost]
         [Route("changepassword")]
         [Authorize]
-        public async Task<ActionResult> ChangePassword(ChangePassword changePassword)
+        public async Task<ActionResult> ChangePassword([FromBody] ChangePassword changePassword)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace WebApplication3.Controllers
 
         [HttpPost]
         [Route("changeaccount")]
-        public async Task<ActionResult> ChangeAccount(ChangeUser changeUser)
+        public async Task<ActionResult> ChangeAccount([FromBody] ChangeUser changeUser)
         {
             var user = await _context.Users.FindAsync(changeUser.Id);
 
@@ -117,7 +117,7 @@ namespace WebApplication3.Controllers
         [HttpPost]
         [Route("adminchangeuser")]
         [Authorize]
-        public async Task<ActionResult> AdminChangeUser(User changeUser)
+        public async Task<ActionResult> AdminChangeUser([FromBody] User changeUser)
         {
             var user = await _context.Users.FindAsync(changeUser.Id);
 
@@ -146,7 +146,7 @@ namespace WebApplication3.Controllers
         [HttpPost]
         [Route("Addbalance")]
         [Authorize]
-        public async Task<ActionResult> addbalance(AddBalance addBalance)
+        public async Task<ActionResult> addbalance([FromBody] AddBalance addBalance)
         {
             var user = await _context.Users.FindAsync(addBalance.Id);
 

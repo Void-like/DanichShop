@@ -21,7 +21,7 @@ namespace WebApplication3.Controllers
        
         [HttpPost("createitem")]
         [Authorize]
-        public async Task<IActionResult> Create( ItemCreate itemCreate)
+        public async Task<IActionResult> Create([FromBody] ItemCreate itemCreate)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimValueTypes.Integer32);
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
@@ -58,7 +58,7 @@ namespace WebApplication3.Controllers
         }
         [HttpPost("changeitem")]
         [Authorize]
-        public async Task<IActionResult> Change( ItemCreate itemCreate)
+        public async Task<IActionResult> Change([FromBody] ItemCreate itemCreate)
         {
             var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimValueTypes.Integer32);
             var userRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;

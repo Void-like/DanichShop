@@ -24,8 +24,13 @@
             <Setter Property="Margin" Value="0,0,0,12"/>
         </Style>
         
-      
-        
+       <Style Selector="TextBox:focus">
+            <Setter Property="BorderBrush" Value="#667eea"/>
+            <Setter Property="BorderThickness" Value="2"/>
+        </Style>
+         <Style Selector="Button:pointerover">
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>    
         <Style Selector="Button">
             <Setter Property="Padding" Value="16,12"/>
             <Setter Property="CornerRadius" Value="10"/>
