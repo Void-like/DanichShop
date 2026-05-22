@@ -90,7 +90,7 @@ namespace DanichShop.ViewModels
         public MainWindowViewModel()
         {
             SearchItem();
-            if (thisUser.Id != 0) 
+            if (ThisUser.Id != 0 && ThisUser != null) 
             {
                 make();
                 LoadCart();
@@ -318,7 +318,7 @@ namespace DanichShop.ViewModels
             if (result.IsSuccessStatusCode)
             {
                 WindowCaption = "Покупка удалась";
-
+            
 
             }
             else
@@ -327,6 +327,8 @@ namespace DanichShop.ViewModels
 
             }
             await LoadCart();
+            await Auth();
+            Balanceaccount = thisUser.Balance;
         }
         [RelayCommand]
         public async Task GetKorzina(int Id)
