@@ -204,7 +204,13 @@ namespace DanichShop.ViewModels
                     WindowCaption = "Неправильный пароль";
 
                 }
-                WindowCaption = "Пароль успешно изменен";
+                else
+                {
+                    WindowCaption = "Пароль успешно изменен";
+                    OldPassword = "";
+                    NewPassword = "";
+                    RNewPassword = "";
+                }
             }
             else
             {

@@ -23,7 +23,7 @@ namespace WebApplication3.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddToCart([FromBody] KorzinaDTO dto)
+        public async Task<IActionResult> AddToCart( KorzinaDTO dto)
         {
 
             var user = await _context.Users.FindAsync(dto.UserID);
@@ -59,7 +59,6 @@ namespace WebApplication3.Controllers
             return Ok(new { message = $"Товар  добавлен в корзину" });
         }
         [HttpDelete("clear/{userId}")]
-
         public async Task<IActionResult> ClearCart(int userId)
         {
             var cartItems = await _context.Korzinas.Where(x => x.UserId == userId).ToListAsync();
@@ -121,7 +120,7 @@ namespace WebApplication3.Controllers
         }
         [HttpPost("buyitem")]
         [Authorize]
-        public async Task<IActionResult> Buy([FromBody] KorzinaDTO dto)
+        public async Task<IActionResult> Buy(KorzinaDTO dto)
         {
             var user = await _context.Users.FindAsync(dto.UserID);
             if (user == null)
@@ -162,7 +161,7 @@ namespace WebApplication3.Controllers
 
         }
         [HttpPost("del")]
-        public async Task<IActionResult> DellToCart([FromBody] KorzinaDTO dto)
+        public async Task<IActionResult> DelToCart(KorzinaDTO dto)
         {
 
             var user = await _context.Users.FindAsync(dto.UserID);

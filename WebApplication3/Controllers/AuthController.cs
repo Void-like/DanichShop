@@ -172,7 +172,7 @@ namespace WebApplication3.Controllers
             return Ok(new { message = $"Баланс пополнен" });
 
         }
-
+        [Authorize]
         [HttpGet("getuser")]
         public async Task<ActionResult<List<User>>> GetUser()
         {

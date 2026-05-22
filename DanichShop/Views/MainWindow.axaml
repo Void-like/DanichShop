@@ -25,11 +25,6 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
         
-        <Style Selector="TextBox:focus">
-            <Setter Property="BorderBrush" Value="#667eea"/>
-            <Setter Property="BorderThickness" Value="2"/>
-        </Style>
-        
         <Style Selector="Button">
             <Setter Property="Padding" Value="16,12"/>
             <Setter Property="CornerRadius" Value="12"/>
@@ -44,9 +39,7 @@
            <Setter Property="FontWeight" Value="SemiBold"/>
            <Setter Property="Margin" Value="4,0,0,0"/>
         </Style>
-        <Style Selector="Button:pointerover">
-            <Setter Property="Opacity" Value="0.9"/>
-        </Style>
+        
          
       
     </Window.Styles>
@@ -78,7 +71,7 @@
                             
                             <StackPanel Spacing="8">
                                 <TextBlock Text="Пароль" />
-                                <TextBox Watermark="Введите пароль" Text="{Binding Password}" PasswordChar="#"/>
+                                <TextBox Watermark="Введите пароль" Text="{Binding Password}" PasswordChar="●"/>
                             </StackPanel>
                             
                             <Button Content="Войти"  Command="{Binding AuthCommand}" Background="#667eea" Foreground="White" Height="48" Margin="0,10,0,0"/>

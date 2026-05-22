@@ -3,14 +3,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+        xmlns:vm="using:DanichShop.ViewModels"
+        x:DataType="vm:MainWindowViewModel"
         x:Class="DanichShop.MainShop"
-        Title="MainShop"
+        Title="{Binding WindowCaption,StringFormat='DanichShop - {0}'}"
         MinWidth="800" MinHeight="600"
         Background="#F0F2F5">
 
     <Window.Styles>
         
-        <Style Selector="Button.nav-button">
+        <Style Selector="Button.select">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Height" Value="56"/>
             <Setter Property="MinWidth" Value="120"/>
@@ -23,14 +25,7 @@
             <Setter Property="Padding" Value="24,12"/>
         </Style>
         
-        <Style Selector="Button.nav-button:pointerover">
-            <Setter Property="Background" Value="#F3F4F6"/>
-            <Setter Property="Foreground" Value="#667eea"/>
-        </Style>
-        
-        <Style Selector="Button.nav-button:pressed">
-            <Setter Property="Background" Value="#E5E7EB"/>
-        </Style>
+       
         
    
         <Style Selector="TextBlock.icon">
@@ -66,17 +61,17 @@
                 
            
                 <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="0,5">
-                    <Button Classes="nav-button" Content="📦  Каталог" Click="Button_Click_1"/>
+                    <Button Classes="select" Content="📦  Каталог" Click="Button_Click_1"/>
                 </StackPanel>
                 
                 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0,5">
-                    <Button Classes="nav-button"  Content="🛒  Корзина" Click="Button_Click"/>
+                    <Button  Classes="select" Content="🛒  Корзина" Click="Button_Click"/>
                 </StackPanel>
                 
                 
                 <StackPanel Grid.Column="2"  HorizontalAlignment="Center" Margin="0,5">
-                    <Button Classes="nav-button"  Content="👤  Аккаунт" Click="Button_Click_2"/>
+                    <Button  Classes="select" Content="👤  Аккаунт" Click="Button_Click_2"/>
                 </StackPanel>
                 
             </Grid>

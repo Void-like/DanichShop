@@ -6,7 +6,9 @@
          xmlns:vm="using:DanichShop.ViewModels"
         x:Class="DanichShop.Views.Registration"
         x:DataType="vm:RegistrationViewModel"
-        Title="{Binding WindowCaption,StringFormat='DanichShop - {0}'}">
+        Title="{Binding WindowCaption,StringFormat='DanichShop - {0}'}"
+        Background="#F0F2F5"
+        >
 
       <Window.Styles>
         <Style Selector="TextBox">
@@ -18,12 +20,7 @@
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
-        
-        <Style Selector="TextBox:focus">
-            <Setter Property="BorderBrush" Value="#667eea"/>
-            <Setter Property="BorderThickness" Value="2"/>
-        </Style>
-        
+           
         <Style Selector="Button">
             <Setter Property="Padding" Value="16,12"/>
             <Setter Property="CornerRadius" Value="12"/>
@@ -91,7 +88,7 @@
                             
                             <StackPanel Spacing="8">
                                 <TextBlock Text="Почта" FontSize="13" FontWeight="SemiBold" Foreground="#374151" Margin="4,0,0,0"/>
-                                <TextBox Watermark="example@mail.com" Text="{Binding Email}"/>
+                                <TextBox Watermark="pochta@mail.com" Text="{Binding Email}"/>
                             </StackPanel>
                             
                             <StackPanel Spacing="8">
@@ -102,12 +99,12 @@
                             <Grid ColumnDefinitions="*,*" ColumnSpacing="15">
                                 <StackPanel Grid.Column="0" Spacing="8">
                                     <TextBlock Text="Пароль" />
-                                    <TextBox Watermark="Введите пароль" Text="{Binding Password}" PasswordChar="#"/>
+                                    <TextBox Watermark="Введите пароль" Text="{Binding Password}" PasswordChar="●"/>
                                 </StackPanel>
                                 
                                 <StackPanel Grid.Column="1" Spacing="8">
                                     <TextBlock Text="Повторите пароль" />
-                                    <TextBox Watermark="Повторите пароль" Text="{Binding Repytpassword}" PasswordChar="#"/>
+                                    <TextBox Watermark="Повторите пароль" Text="{Binding Repytpassword}" PasswordChar="●"/>
                                 </StackPanel>
                             </Grid>
                             
