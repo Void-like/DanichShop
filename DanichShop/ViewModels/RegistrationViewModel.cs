@@ -55,8 +55,6 @@ namespace DanichShop.ViewModels
                 WindowCaption = "Ошибка регистрации";
                 return;
             }
-
-            ActiveUser.Token = await result.Content.ReadAsStringAsync();
             WindowCaption = "Аккаунт создан";
      
 
