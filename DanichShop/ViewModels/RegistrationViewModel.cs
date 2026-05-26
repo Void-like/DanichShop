@@ -56,7 +56,15 @@ namespace DanichShop.ViewModels
                 return;
             }
             WindowCaption = "Аккаунт создан";
-     
+            Login = "";
+            Password = "";
+            FName = "";
+            SName = "";
+            Telephone = "";
+            Email = "";
+            Repytpassword = "";
+            
+
 
 
 
@@ -68,11 +76,7 @@ namespace DanichShop.ViewModels
             return !string.IsNullOrEmpty(Login) && !string.IsNullOrEmpty(Password);
         }
 
-        private Action close;
-        public void SetCloseAction(Action close)
-        {
-            this.close = close;
-        }
+        
 
 
     }

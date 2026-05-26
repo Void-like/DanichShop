@@ -12,11 +12,7 @@ public partial class Registration : Window
     public Registration()
     {
         InitializeComponent();
-        Opened += (sender, args) =>
-        {
-
-            (DataContext as RegistrationViewModel).SetCloseAction(Close);
-        };
+     
     }
 
     private void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
