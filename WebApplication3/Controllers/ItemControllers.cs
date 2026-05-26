@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using WebApplication3.DB;
@@ -101,10 +102,25 @@ namespace WebApplication3.Controllers
 
         public async Task<IActionResult> Deleteitem(int itemId)
         {
-            var cartItems = await _context.Items.Where(x => x.Id == itemId).ToListAsync();
+            var Items = await _context.Items.Where(x => x.Id == itemId).ToListAsync();
+            var cartItems = await _context.Korzinas.Where(x => x.ItemId == itemId).ToListAsync();
+            var orderItems = await _context.Orders.Where(x => x.ItemId == itemId).ToListAsync();
+            if(orderItems != null)
+            {
+
+                _context.Orders.RemoveRange(orderItems);
+                await _context.SaveChangesAsync();
+
+            }
             if (cartItems != null)
             {
-                _context.Items.RemoveRange(cartItems);
+                _context.Korzinas.RemoveRange(cartItems);
+                await _context.SaveChangesAsync();
+            }
+            if (Items != null)
+            {
+               
+                _context.Items.RemoveRange(Items);
                 await _context.SaveChangesAsync();
 
                 return Ok(new { message = "Предмет удален" });
