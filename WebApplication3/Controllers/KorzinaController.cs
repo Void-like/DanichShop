@@ -139,25 +139,29 @@ namespace WebApplication3.Controllers
             {
                 return BadRequest(new { message = "Недостаточно средств" });
             }
-            else
+            else if (item.Count < existingItem.Count)
             {
-                var newOrder = new Order
-                {
-                    ItemId = dto.ItemsID,
-                    UserId = dto.UserID,
-                    Count = existingItem.Count,
-                    Price = price,
-                    OrderDate = DateTime.Now,
-                };
-                    
-                    
-                    user.Balance = user.Balance - price;
-                await _context.Orders.AddAsync(newOrder);
-                _context.Korzinas.Remove(existingItem);
-                await _context.SaveChangesAsync();
-                return BadRequest(new { message = "Покупка успешна" });
-
+                return BadRequest(new { message = "Недостаточно товаров" });
             }
+            else
+    {
+        var newOrder = new Order
+        {
+            ItemId = dto.ItemsID,
+            UserId = dto.UserID,
+            Count = existingItem.Count,
+            Price = price,
+            OrderDate = DateTime.Now,
+        };
+
+        item.Count = item.Count - existingItem.Count;
+        user.Balance = user.Balance - price;
+        await _context.Orders.AddAsync(newOrder);
+        _context.Korzinas.Remove(existingItem);
+        await _context.SaveChangesAsync();
+        return BadRequest(new { message = "Покупка успешна" });
+
+    }
 
         }
         [HttpPost("del")]

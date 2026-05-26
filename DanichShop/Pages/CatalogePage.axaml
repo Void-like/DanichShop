@@ -130,12 +130,12 @@
                                    
                                 <Border Grid.Row="3" Background="White" CornerRadius="0,0,12,12" Padding="10,5,10,12">
                                     
-                                    <Grid ColumnDefinitions="*,Auto">
+                                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,*">
+                                       <TextBlock Grid.Row="0" Text="{Binding Count, StringFormat='Количество:{0}'}" FontSize="16" FontWeight="Bold" Foreground="#27ae60"  VerticalAlignment="Center"/> 
+                                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Cost, StringFormat='|{0:C}|'}" FontSize="16" FontWeight="Bold" Foreground="#27ae60"  VerticalAlignment="Center"/>
                                         
-                                        <TextBlock Grid.Column="0" Text="{Binding Cost, StringFormat='|{0:C}|'}" FontSize="16" FontWeight="Bold" Foreground="#27ae60"  VerticalAlignment="Center"/>
                                         
-                                        
-                                        <Button Grid.Column="1"  Classes="cart-btn" Content="В корзину" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).GetKorzina}" CommandParameter="{Binding Id}"/>
+                                        <Button Grid.Column="1" Grid.Row="1" Classes="cart-btn" Content="В корзину" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).GetKorzina}" CommandParameter="{Binding Id}"/>
                                     </Grid>
                                 </Border>
                                 
